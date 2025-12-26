@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="date.cpp" />
     <ClCompile Include="department.cpp" />
     <ClCompile Include="doctor.cpp" />
     <ClCompile Include="hospital.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="worker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="date.h" />
     <ClInclude Include="department.h" />
     <ClInclude Include="doctor.h" />
     <ClInclude Include="hospital.h" />
