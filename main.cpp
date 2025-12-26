@@ -38,7 +38,7 @@ void main()
 	Date date;
 	//Person p("nir",date);
 	Person p("nir", 1, date, Person::eGender::MALE);
-	//Worker w("nir",1,date,0);
+	Worker w("nir", 1 , date , Person::eGender::MALE);
 }
 
 // common functions (for now)
