@@ -2,7 +2,7 @@
 using namespace std;
 #include "researchcenter.h"
 #include <iostream>
-
+//Zubi
 Researchcenter::Researchcenter(const char* name) : NumOfResearchers(0)
 { 
 	this->name = new char[strlen(name) + 1];
