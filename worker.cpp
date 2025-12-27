@@ -6,9 +6,9 @@ using namespace std;
 
 int Worker::idCounter = 100;
 
-Worker::Worker(const char* name, const int id, Date& birthdate, eGender gender, Department* department = nullptr) : Person(name, id, birthdate, gender), workerId(++idCounter)
+Worker::Worker(const char* name, const int id, Date& birthdate, eGender gender, Department* department) : Person(name, id, birthdate, gender), workerId(++idCounter)
 {
-	this->department = department;
+	setWorkerDepartment(department);
 }
 
 Worker::~Worker()
@@ -16,10 +16,11 @@ Worker::~Worker()
 
 const int Worker::getWorkerId() const { return workerId; }
 
-//const char* Worker::getWorkerDepartment() const { return department->getDepartmentName(); }
+const char* Worker::getWorkerDepartment() const { return department->getName(); }
 
-bool Worker::setWorkerDepartment(Department& new_department)
+bool Worker::setWorkerDepartment(Department* new_department)
 {
-	department = &new_department;
+	department = new_department;
+	department->addWorker(this);
 	return true;
 }

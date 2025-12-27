@@ -1,6 +1,6 @@
+#pragma warning (disable: 4996)
 #include "hospital.h"
 #include <iostream>
-#pragma warning (disable: 4996)
 
 Hospital::Hospital(const char* name, Researchcenter& rc) : researchCenter(rc)
 {
@@ -36,7 +36,7 @@ bool Hospital::addDepartment(Department& department)
 		delete[] departments;
 		departments = temp;
 	}
-	departments[physicalDepartments] = new Department(department); // ?????????????
+	departments[physicalDepartments] = new Department(department);
 	physicalDepartments++;
 	return true;
 }
