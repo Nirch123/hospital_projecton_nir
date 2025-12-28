@@ -5,6 +5,7 @@
 using namespace std;
 
 class Date;
+#include "department.h"
 #include "worker.h"
 
 class Nurse : public Worker
@@ -15,6 +16,8 @@ public:
 	bool setNurseYears(int YoE);
 	const int getNurseYears() const;
 	friend ostream& operator<<(ostream& os, const Nurse& nurse);
+	virtual void nurseOs(ostream& os) const override; // polymorphisem - p.54
+
 private:
 	int YoE; // Years of Experience
 };

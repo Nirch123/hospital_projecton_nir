@@ -18,6 +18,7 @@ using namespace std;
 
 // main function headers
 void printDepartments(Hospital& hospital);
+void printWorkersInDepartment(Department& department);
 
 
 
@@ -37,9 +38,14 @@ void main()
 	hospital.removeDepartment(b);
 	printDepartments(hospital);
 	Date date;
-	Worker w1("Nir", 1 , date , Person::MALE);
-	Nurse n1("Liora", 2, date, Person::FEMALE, &b, 3);
-	printNursesInDepartment(b);
+	Worker w1("Nir", 1000 , date , Person::MALE, &b);
+	Nurse n1("Liora", 1001, date, Person::FEMALE, &b, 3);
+	Nurse n2("Mike", 1002, date, Person::MALE, &b, 5);
+	Nurse n3("Abi", 1003, date, Person::OTHER, &b);
+	printWorkersInDepartment(b);
+	printWorkersInDepartment(a);
+	b.removeWorker(&n2);
+	printWorkersInDepartment(b);
 }
 
 // common functions (for now)
@@ -50,15 +56,14 @@ void printDepartments(Hospital &hospital)
 		cout << "(" << i << ") " << hospital.getDepartmentName(i) << "\n";
 }
 
-void printNursesInDepartment(Department& department)
+void printWorkersInDepartment(Department& department)
 {
+	cout << "\nDepartment " << department << " workers are : \n";
 	if (department.getWorkersAmount() == 0)
-		cout << "\nThere are no workers in this department\n"
+		cout << "There are no workers in this department\n";
 	else
 	{
-		cout << "\nDepartment " << department << " nurses are : \n";
 		for (int i = 0; i < department.getWorkersAmount(); i++)
-			if (department.getWorkerType() == Department::NURSE)
-			cout << "(" << i << ") " << department.getWorkerType << "\n";
+			cout << "(" << i << ") " << department.getWorkerByIndex(i) << "\n";
 	}
 }

@@ -4,12 +4,13 @@
 #include <iostream>
 using namespace std;
 
+//class Worker;
 #include "worker.h"
 
 class Department
 {
 	public:
-		enum eWorkerType {DOCTOR, NURSE, OTHER};
+		//enum eWorkerType {DOCTOR, NURSE, OTHER}; // should classification be under department? or under worker?
 		Department(const char *name);
 		Department(const Department& other);
 		~Department();
@@ -17,7 +18,8 @@ class Department
 		bool removeWorker(Worker* worker);
 		const char* getName() const;
 		const int getWorkersAmount() const;
-		const eWorkerType getWorkerType(Worker* worker) const;
+		const Worker& getWorkerByIndex(int index) const;
+		//const eWorkerType getWorkerType(Worker* worker) const;
 		friend ostream& operator<<(ostream& os, const Department& department);
 		friend class Hospital;
 		
@@ -25,6 +27,6 @@ class Department
 		char *name;
 		int physicalWorkers, logicalWorkers;
 		Worker** workerarr;
-		eWorkerType workertype;
+		//eWorkerType workertype;
 };
 #endif

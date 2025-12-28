@@ -10,7 +10,7 @@ Department::Department(const char* name)
 	strcpy(this->name, name); 
 	physicalWorkers = 0;
 	logicalWorkers = 1;
-	workerarr = new Worker * [logicalWorkers];
+	workerarr = new Worker * [logicalWorkers] {nullptr};
 }
 
 Department::Department(const Department& other) : physicalWorkers(other.physicalWorkers) , 
@@ -34,9 +34,10 @@ bool Department::addWorker(Worker* worker)
 		if (worker->getId() == workerarr[i]->getId())
 			return false;
 
-	if (workerarr[logicalWorkers] != nullptr) // check if department worker array is full and expand if nesscery
+	if (workerarr[logicalWorkers-1] != nullptr) // check if department worker array is full and expand if nesscery
 	{
-		Worker** temp = new Worker * [logicalWorkers * 2];
+		logicalWorkers = logicalWorkers * 2;
+		Worker** temp = new Worker * [logicalWorkers];
 		for (int i = 0; i < physicalWorkers; i++)
 			temp[i] = workerarr[i];
 		delete[] workerarr;
@@ -44,7 +45,8 @@ bool Department::addWorker(Worker* worker)
 	}
 
 	workerarr[physicalWorkers] = worker;
-	worker->setWorkerDepartment(this); // make sure worker acknowledges it's new department
+	if (worker->getWorkerDepartment() != workerarr[physicalWorkers]->getWorkerDepartment())
+		worker->setWorkerDepartment(this); // make sure worker acknowledges it's new department
 	physicalWorkers++;
 	return true;
 }
@@ -57,8 +59,12 @@ bool Department::removeWorker(Worker* worker)
 			workerarr[i]->setWorkerDepartment(nullptr);
 			int j = i;
 			do
+			{
 				workerarr[j] = workerarr[j + 1];
+				++j;
+			}
 			while (j < physicalWorkers);
+			--physicalWorkers;
 			return true; // worker was found and removed from department
 		}
 		return false; // worker was not found
@@ -68,7 +74,10 @@ const char* Department::getName() const { return name; }
 
 const int Department::getWorkersAmount() const { return physicalWorkers; }
 
-const Department::eWorkerType Department::getWorkerType(Worker* worker) const { return workertype; }
+//const Department::eWorkerType Department::getWorkerType(Worker* worker) const { return workertype; }
+
+const Worker& Department::getWorkerByIndex(int index) const { return *workerarr[index]; }
+
 
 ostream& operator<<(ostream& os, const Department& department)
 {
