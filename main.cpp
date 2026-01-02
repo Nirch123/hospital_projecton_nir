@@ -15,6 +15,8 @@ using namespace std;
 #include "worker.h"
 #include "date.h"
 #include "nurse.h"
+#include "doctor.h"
+#include "patient.h"
 
 // main function headers
 void printDepartments(Hospital& hospital);
@@ -42,10 +44,13 @@ void main()
 	Nurse n1("Liora", 1001, date, Person::FEMALE, &b, 3);
 	Nurse n2("Mike", 1002, date, Person::MALE, &b, 5);
 	Nurse n3("Abi", 1003, date, Person::OTHER, &b);
+	Doctor d1("zubi", 1004, date, Person::MALE, &d, "heart");
+	Patient p1("dubi", 1005, date, Person::FEMALE, &c, &d1, &n1, date, "heart stroke");
 	printWorkersInDepartment(b);
 	printWorkersInDepartment(a);
 	b.removeWorker(&n2);
 	printWorkersInDepartment(b);
+
 }
 
 // common functions (for now)
@@ -66,4 +71,5 @@ void printWorkersInDepartment(Department& department)
 		for (int i = 0; i < department.getWorkersAmount(); i++)
 			cout << "(" << i << ") " << department.getWorkerByIndex(i) << "\n";
 	}
+	//add for patients
 }

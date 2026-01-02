@@ -12,6 +12,7 @@ class Doctor : public Worker
 		void setDoctorExpertise(const std::string& expertise);
 		const std::string& getDoctorExpertise() const;
 		friend ostream& operator<<(ostream& os, const Doctor& doctor);
+		//add poly os 
 
 	private:
 		std::string expertise;

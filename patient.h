@@ -9,8 +9,8 @@ class Doctor;
 class Patient : public Person
 {
 public:
-	Patient(const char* name, const int id, Date& birthdate, eGender gender, Department* department = nullptr, 
-		Doctor* doctor=nullptr, Nurse* nurse=nullptr, Date& dateofarrival, char* VisitPurpose);
+	Patient(const char* name,  int id, const Date& birthdate, eGender gender, Department* department = nullptr, 
+		Doctor* doctor=nullptr, Nurse* nurse=nullptr, const Date& dateofarrival, const char* visitpurpose);
 	~Patient();
 	const char* getPatientDepartment() const;
 	const char* getPatientVisitPurpose() const;
@@ -19,11 +19,13 @@ public:
 	const int getPatientId() const;
 	bool setPatientDepartment(Department* department);
 	friend ostream& operator<<(ostream& os, const Patient& patient);
+	//bool setNurse*
+	//bool setDoctor*
 
 
 
 protected:
-	Date& dateofarrival;
+	const Date& dateofarrival;
 	Department* department;
 	Doctor* MyDoctor;
 	Nurse* MyNurse;

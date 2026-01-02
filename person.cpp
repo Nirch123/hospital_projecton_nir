@@ -4,7 +4,7 @@ using namespace std;
 
 #include "person.h"
 
-Person::Person(const char* name, const int id, Date& birthdate, const eGender gender) : id(id), birthdate(birthdate)
+Person::Person(const char* name, const int id,const Date& birthdate, const eGender gender) : id(id), birthdate(birthdate)
 {
 	this->gender = gender;
 	this->name = new char[strlen(name) + 1];
