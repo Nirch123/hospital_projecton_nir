@@ -69,7 +69,7 @@ void printWorkersInDepartment(Department& department)
 	else
 	{
 		for (int i = 0; i < department.getWorkersAmount(); i++)
-			cout << "(" << i << ") " << department.getWorkerByIndex(i) << "\n";
+			cout << "(" << i << ") " << department.getWorkerByIndex(i) << "\n\n";
 	}
 	//add for patients
 }

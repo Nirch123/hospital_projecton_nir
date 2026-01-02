@@ -11,7 +11,7 @@ class Date;
 class Nurse : public Worker
 {
 public:
-	Nurse(const char* name, const int id, Date& birthdate, eGender gender, Department *department = nullptr , int YoE = 0);
+	Nurse(const char* name, const int id, const Date& birthdate, eGender gender, Department *department = nullptr , int YoE = 0);
 	~Nurse();
 	bool setNurseYears(int YoE);
 	const int getNurseYears() const;

@@ -7,13 +7,15 @@ using namespace std;
 
 int Worker::idCounter = 100;
 
-Worker::Worker(const char* name, const int id, Date& birthdate, eGender gender, Department* department) : Person(name, id, birthdate, gender), workerId(++idCounter)
+Worker::Worker(const char* name, const int id, const Date& birthdate, eGender gender, Department* department) : Person(name, id, birthdate, gender), workerId(++idCounter)
 {
 	setWorkerDepartment(department);
 }
 
 Worker::~Worker()
-{}
+{
+	cout << "\nDEBUG: in Worker::~Worker()";
+}
 
 const int Worker::getWorkerId() const { return workerId; }
 
@@ -29,8 +31,8 @@ bool Worker::setWorkerDepartment(Department* new_department)
 
 ostream& operator<<(ostream& os, const Worker& worker)
 {
-	os << "Worker Id: " << worker.getWorkerId() << " Name: " << worker.getName()
-		<< " Gender: " << worker.getGender() << " Department: " << worker.department->getName();
+	os << "\tWorker Id: " << worker.getWorkerId() << "\n\tName: " << worker.getName()
+		<< "\n\tGender: " << worker.getGender() << "\n\tDepartment: " << worker.department->getName();
 	worker.nurseOs(os);
 	return os;
 }

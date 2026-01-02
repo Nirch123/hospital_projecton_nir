@@ -6,7 +6,7 @@ using namespace std;
 
 //class Worker;
 #include "worker.h"
-#include "patient.h"
+class Patient;
 
 class Department
 {

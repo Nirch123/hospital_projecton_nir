@@ -1,20 +1,22 @@
+#pragma warning (disable: 4996)
 #include "doctor.h"
 
-Doctor::Doctor(const char* name, const int id, Date& birthdate, eGender gender, Department* department = nullptr, const std::string& expertise)
+Doctor::Doctor(const char* name, const int id, Date& birthdate, const char* expertise, eGender gender, Department* department)
 	: Worker(name, id, birthdate, gender, department)
 {
-	this->expertise = expertise;
+	expertise = new char[strlen(expertise) + 1];
+	strcpy(this->expertise,expertise);
 	Worker::setWorkerType(Worker::eWorkerType::DOCTOR);
 }
 
 Doctor::~Doctor() {}
 
-void Doctor::setDoctorExpertise(const std::string& new_expertise)
+void Doctor::setDoctorExpertise(const char* new_expertise)
 {
-	expertise = new_expertise;
+	strcpy(expertise,new_expertise);
 }
 
-const std::string& Doctor::getDoctorExpertise() const
+const char* Doctor::getDoctorExpertise() const
 {
 	return expertise;
 }

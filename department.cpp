@@ -1,5 +1,6 @@
 #pragma warning (disable: 4996)
 #include "department.h"
+#include "patient.h"
 #include <iostream>
 using namespace std;
 

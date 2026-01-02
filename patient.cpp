@@ -8,8 +8,8 @@ using namespace std;
 
 int Patient::PatientIdCounter = 1000;
 
-Patient::Patient(const char* name,  int id, const Date& birthdate, eGender gender, Department* department, Doctor* doctor, Nurse* nurse,const Date& date,const char* visitpurpose)
-	: Person(name, id, birthdate, gender), PatientId(PatientIdCounter++), MyDoctor(doctor), MyNurse(nurse), dateofarrival(date)
+Patient::Patient(const char* name, int id, const Date& birthdate, eGender gender, const char* visitpurpose, const Date& dateofarrival, Department* department,
+	Doctor* doctor, Nurse* nurse) : Person(name, id, birthdate, gender), PatientId(PatientIdCounter++), MyDoctor(doctor), MyNurse(nurse), dateofarrival(dateofarrival)
 {
 	setPatientDepartment(department);
 	this->VisitPurpose = new char[strlen(visitpurpose) + 1];

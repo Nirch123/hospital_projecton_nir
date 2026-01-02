@@ -20,6 +20,7 @@ Person::Person(const char* name, Date& birthdate) : birthdate(birthdate)
 Person::~Person()
 {
 	delete[] name;
+	cout << "\nDEBUG: in Person::~Person()";
 }
 
 const char* Person::getName() const { return name; }

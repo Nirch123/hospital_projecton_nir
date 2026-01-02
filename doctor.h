@@ -7,15 +7,16 @@
 class Doctor : public Worker
 {
 	public:
-		Doctor(const char* name, const int id, Date& birthdate, eGender gender, Department* department = nullptr, const std::string& expertise);
+		Doctor(const char* name, const int id, Date& birthdate, const char* expertise, eGender gender, Department* department = nullptr);
 		~Doctor();
-		void setDoctorExpertise(const std::string& expertise);
-		const std::string& getDoctorExpertise() const;
+		void setDoctorExpertise(const char* expertise);
+		const char* getDoctorExpertise() const;
 		friend ostream& operator<<(ostream& os, const Doctor& doctor);
 		//add poly os 
 
 	private:
-		std::string expertise;
+		char* expertise;
+		//std::string expertise;
 	
 };
 
