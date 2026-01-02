@@ -12,7 +12,8 @@ Patient::Patient(const char* name,  int id, const Date& birthdate, eGender gende
 	: Person(name, id, birthdate, gender), PatientId(PatientIdCounter++), MyDoctor(doctor), MyNurse(nurse), dateofarrival(date)
 {
 	setPatientDepartment(department);
-	//strcpy
+	this->VisitPurpose = new char[strlen(visitpurpose) + 1];
+	strcpy(this->VisitPurpose, visitpurpose);
 }
 
 Patient::~Patient() {}
