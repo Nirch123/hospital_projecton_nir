@@ -1,4 +1,7 @@
+
+
 #include "nurse.h"
+#include "department.h"
 
 Nurse::Nurse(const char* name, const int id, const Date& birthdate, eGender gender, Department* department, int YoE) : Worker(name, id, birthdate, gender, department)
 {

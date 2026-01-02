@@ -1,8 +1,12 @@
 #ifndef __PATIENT_H
 #define __PATIENT_H
 
+#include <iostream>
+using namespace std;
+
 #include "person.h"
-class Department;
+#include "department.h"
+
 class Nurse;
 class Doctor;
 

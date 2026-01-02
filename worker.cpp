@@ -1,9 +1,8 @@
 #pragma warning (disable: 4996)
-#include <iostream>
-using namespace std;
+
 
 #include "worker.h"
-#include "department.h" // ???
+
 
 int Worker::idCounter = 100;
 

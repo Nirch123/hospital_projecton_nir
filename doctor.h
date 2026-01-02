@@ -1,8 +1,12 @@
 #ifndef __DOCTOR_H
 #define __DOCTOR_H
 
-#include "department.h"
+#include <iostream>
+using namespace std;
+
 #include "worker.h"
+class Department;
+
 
 class Doctor : public Worker
 {

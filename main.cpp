@@ -44,8 +44,8 @@ void main()
 	Nurse n1("Liora", 1001, date, Person::FEMALE, &b, 3);
 	Nurse n2("Mike", 1002, date, Person::MALE, &b, 5);
 	Nurse n3("Abi", 1003, date, Person::OTHER, &b);
-	Doctor d1("zubi", 1004, date, Person::MALE, &d, "heart");
-	Patient p1("dubi", 1005, date, Person::FEMALE, &c, &d1, &n1, date, "heart stroke");
+	Doctor d1("zubi",10005,date,"heart",Person::MALE,&a);
+	Patient p1("dubi",10007,date,Person::OTHER,"heart stroke",date,&a,&d1);
 	printWorkersInDepartment(b);
 	printWorkersInDepartment(a);
 	b.removeWorker(&n2);

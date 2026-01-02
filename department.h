@@ -4,9 +4,11 @@
 #include <iostream>
 using namespace std;
 
-//class Worker;
-#include "worker.h"
+class Person;
+class Worker;
 class Patient;
+class Doctor;
+class Nurse;
 
 class Department
 {

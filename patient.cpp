@@ -1,8 +1,6 @@
-#include <iostream>
-using namespace std;
+#pragma warning (disable: 4996)
 
 #include "patient.h"
-#include "department.h"
 #include "doctor.h"
 #include "nurse.h"
 
@@ -39,10 +37,12 @@ bool Patient::setPatientDepartment(Department* new_department)
 bool Patient::setNurse(Nurse* new_nurse)
 {
 	MyNurse = new_nurse;
+	return true;
 }
 bool Patient::setDoctor(Doctor* new_doctor)
 {
 	MyDoctor = new_doctor;
+	return true;
 }
 
 ostream& operator<<(ostream& os, const Patient& patient)

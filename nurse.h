@@ -4,9 +4,11 @@
 #include <iostream>
 using namespace std;
 
-class Date;
-#include "department.h"
 #include "worker.h"
+
+class Date;
+class Department;
+
 
 class Nurse : public Worker
 {

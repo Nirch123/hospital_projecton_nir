@@ -1,10 +1,12 @@
 #pragma warning (disable: 4996)
 #include "doctor.h"
+#include "department.h"
+
 
 Doctor::Doctor(const char* name, const int id, Date& birthdate, const char* expertise, eGender gender, Department* department)
 	: Worker(name, id, birthdate, gender, department)
 {
-	expertise = new char[strlen(expertise) + 1];
+	this->expertise = new char[strlen(expertise) + 1];
 	strcpy(this->expertise,expertise);
 	Worker::setWorkerType(Worker::eWorkerType::DOCTOR);
 }

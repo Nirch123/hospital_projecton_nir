@@ -1,8 +1,13 @@
 #pragma warning (disable: 4996)
-#include "department.h"
-#include "patient.h"
 #include <iostream>
 using namespace std;
+
+#include "department.h"
+//#include "person.h"
+#include "worker.h"
+#include "patient.h"
+//#include "doctor.h"
+//#include "nurse.h"
 
 
 Department::Department(const char* name) 

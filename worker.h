@@ -1,8 +1,11 @@
 #ifndef __WORKER_H
 #define __WORKER_H
 
+#include <iostream>
+using namespace std;
+
 #include "person.h"
-class Department;
+#include "department.h"
 
 class Worker : public Person
 {
