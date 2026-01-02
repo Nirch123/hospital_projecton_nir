@@ -36,6 +36,15 @@ bool Patient::setPatientDepartment(Department* new_department)
 	return true;
 }
 
+bool Patient::setNurse(Nurse* new_nurse)
+{
+	MyNurse = new_nurse;
+}
+bool Patient::setDoctor(Doctor* new_doctor)
+{
+	MyDoctor = new_doctor;
+}
+
 ostream& operator<<(ostream& os, const Patient& patient)
 {
 	os << "Patient Id: " << patient.getPatientId() << " Name: " << patient.getName()
