@@ -9,7 +9,6 @@ using namespace std;
 class Date;
 class Department;
 
-
 class Nurse : public Worker
 {
 public:

@@ -1,6 +1,7 @@
 #pragma warning (disable: 4996)
 
 #include "patient.h"
+#include "department.h"
 #include "doctor.h"
 #include "nurse.h"
 

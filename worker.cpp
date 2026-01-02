@@ -2,7 +2,7 @@
 
 
 #include "worker.h"
-
+#include "department.h"
 
 int Worker::idCounter = 100;
 

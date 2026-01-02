@@ -6,8 +6,6 @@ using namespace std;
 //#include "person.h"
 #include "worker.h"
 #include "patient.h"
-//#include "doctor.h"
-//#include "nurse.h"
 
 
 Department::Department(const char* name) 

@@ -5,7 +5,8 @@
 using namespace std;
 
 #include "person.h"
-#include "department.h"
+class Department;
+
 
 class Worker : public Person
 {
