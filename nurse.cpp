@@ -38,7 +38,4 @@ void Nurse::nurseOs(ostream& os) const
 	os << "\n\tTitle: Nurse" << "\n\tYoE : " << this->YoE;
 }
 
-const int Nurse::getNurseYears() const
-{
-	return YoE;
-}
+const int Nurse::getNurseYears() const { return YoE; }

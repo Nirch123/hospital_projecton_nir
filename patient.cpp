@@ -4,6 +4,7 @@
 #include "department.h"
 #include "doctor.h"
 #include "nurse.h"
+#include "date.h"
 
 int Patient::PatientIdCounter = 1000;
 
@@ -27,6 +28,8 @@ Nurse* Patient::getPatientNurse() const { return this->MyNurse; }
 
 const char* Patient::getPatientVisitPurpose() const { return this->VisitPurpose; }
 
+const Date& Patient::getDateOfArrival() const { return dateofarrival; }
+
 bool Patient::setPatientDepartment(Department* new_department)
 {
 	department = new_department;
@@ -48,7 +51,15 @@ bool Patient::setDoctor(Doctor* new_doctor)
 
 ostream& operator<<(ostream& os, const Patient& patient)
 {
-	os << "Patient Id: " << patient.getPatientId() << " Name: " << patient.getName()
-		<< " Gender: " << patient.getGender() << " Department: " << patient.department->getName();
+	os << "\tId: " << patient.getId() << "\n\tName: " << patient.getName()
+		<< "\n\tGender: " << patient.getGender() << "\n\tDOB: " << patient.birthdate << "\tPatient Id : " << patient.getPatientId()
+		<< "\n\tDepartment: " << patient.department->getName() << "\n\tDOA: " << patient.getDateOfArrival()
+		<< "\tVisit reason: " << patient.getPatientVisitPurpose() << "\n\tAssigned Doctor: " << patient.getPatientDoctor()
+		<< "\n\tAssigned Nurse: " << patient.getPatientNurse();
 	return os;
+}
+
+void Patient::patientOs(ostream& os)
+{
+	os << "\nDate of arrival: " << dateofarrival << "\nVisit purpose: " << VisitPurpose << "\nDepartment: " << department;
 }

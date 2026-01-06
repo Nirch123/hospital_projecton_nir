@@ -23,7 +23,9 @@ class Department
 		bool removePatient(Patient* patient);
 		const char* getName() const;
 		const int getWorkersAmount() const;
+		const int getPatientsAmount() const;
 		const Worker& getWorkerByIndex(int index) const;
+		const Patient& getPatientByIndex(int index) const;
 		//const eWorkerType getWorkerType(Worker* worker) const;
 		friend ostream& operator<<(ostream& os, const Department& department);
 		friend class Hospital;

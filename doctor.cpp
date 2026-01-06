@@ -13,15 +13,9 @@ Doctor::Doctor(const char* name, const int id, Date& birthdate, const char* expe
 
 Doctor::~Doctor() {}
 
-void Doctor::setDoctorExpertise(const char* new_expertise)
-{
-	strcpy(expertise,new_expertise);
-}
+void Doctor::setDoctorExpertise(const char* new_expertise) { strcpy(expertise, new_expertise); }
 
-const char* Doctor::getDoctorExpertise() const
-{
-	return expertise;
-}
+const char* Doctor::getDoctorExpertise() const { return expertise; }
 
 ostream& operator<<(ostream& os, const Doctor& doctor)
 {

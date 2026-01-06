@@ -32,8 +32,14 @@ Date::Date(Date& other)
 void Date::show() const 
 {
 	cout << day << "/" << month << "/" << year << endl;
-
 }
+
+ostream& operator<< (ostream& os, const Date& date)
+{
+	os << date.day << "/" << date.month << "/" << date.year << "\n";
+	return os;
+}
+
 
 const int Date::getDate() const { return day, month, year; }
 

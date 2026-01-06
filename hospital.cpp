@@ -4,6 +4,7 @@
 #include "doctor.h"
 #include "nurse.h"
 #include "date.h"
+#include "patient.h"
 
 
 Hospital::Hospital(const char* name, Researchcenter& rc) : researchCenter(rc)
@@ -96,9 +97,22 @@ bool Hospital::printWorkersInDepartment(Department& department)
 		for (int i = 0; i < department.getWorkersAmount(); i++)
 			cout << "(" << i << ") " << department.getWorkerByIndex(i) << "\n\n";
 	}
-	//add for patients
 	return true;
 }
+
+bool Hospital::printPatientsInDepartment(Department& department)
+{
+	cout << "\nDepartment " << department << " patients are : \n";
+	if (department.getPatientsAmount() == 0)
+		cout << "There are no patients in this department\n";
+	else
+	{
+		for (int i = 0; i < department.getPatientsAmount(); i++)
+			cout << "(" << i << ") " << department.getPatientByIndex(i) << "\n\n";
+	}
+	return true;
+}
+
 
 Department* Hospital::getDepartmentByName(const char* dName) const
 {
@@ -126,8 +140,70 @@ bool Hospital::addNurse(const char* name, const int id,
 	return true;
 }
 
+bool Hospital::addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender, const char* visitpurpose,
+	const Date& dateofarrival, Department* department, Doctor* doctor, Nurse* nurse)
+{
+	Patient* p = new Patient(name, id, birthdate, gender, visitpurpose, dateofarrival, department, doctor, nurse);
+	department->addPatient(p);
+	return true;
+}
+
 Date& Hospital::createDate(int day, int month, int year)
 {
 	date = new Date(day,month,year);
 	return *date;
+}
+
+Nurse* Hospital::getNurseById(int id)
+{
+	if (physicalDepartments == 0)
+		return nullptr; // no departments yet
+	for (int i = 0; i < physicalDepartments; i++)
+	{
+		for (int j = 0; j < departments[i]->physicalWorkers; j++)
+		{
+			if (id == (departments[i]->workerarr[j]->getId()))
+				return dynamic_cast<Nurse*>(departments[i]->workerarr[j]); // nurse found
+		}
+	}
+	return nullptr; // nurse not found
+}
+
+Doctor* Hospital::getDoctorById(int id)
+{
+	if (physicalDepartments == 0)
+		return nullptr; // no departments yet
+	for (int i = 0; i < physicalDepartments; i++)
+	{
+		for (int j = 0; j < departments[i]->physicalWorkers; j++)
+		{
+			if (id == (departments[i]->workerarr[j]->getId()))
+				return dynamic_cast<Doctor*>(departments[i]->workerarr[j]); // doctor found
+		}
+	}
+	return nullptr; // doctor not found
+}
+
+Patient* Hospital::getPatientById(int id)
+{
+	if (physicalDepartments == 0)
+		return nullptr; // no departments yet
+	for (int i = 0; i < physicalDepartments; i++)
+	{
+		for (int j = 0; j < departments[i]->physicalPatients; j++)
+		{
+			if (id == (departments[i]->patientArr[j]->getId()))
+				return departments[i]->patientArr[j]; // patient found
+		}
+	}
+	return nullptr; // patient not found
+}
+
+
+bool Hospital::updatePatientInformation(Patient* p, Department* department, Doctor* doctor, Nurse* nurse)
+{
+	p->setPatientDepartment(department);
+	p->setDoctor(doctor);
+	p->setNurse(nurse);
+	return true;
 }

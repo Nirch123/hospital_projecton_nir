@@ -19,16 +19,23 @@ public:
 	const int getDepartmentsCount() const;
 	const char* getResearchCenterName() const;
 	Department* getDepartmentByName(const char* dName) const;
+	Nurse* getNurseById(int id);
+	Doctor* getDoctorById(int id);
+	Patient* getPatientById(int id);
 	bool addDepartment(Department& department);
 	bool removeDepartment(const Department& department);
 	bool addDoctor(const char* name, const int id, Date& birthdate,
 		const char* expertise, Person::eGender gender, Department* department = nullptr);
 	bool addNurse(const char* name, const int id, 
 		const Date& birthdate, Person::eGender gender, Department* department = nullptr, int YoE = 0);
+	bool addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender, const char* visitpurpose,
+		const Date& dateofarrival, Department* department = nullptr, Doctor* doctor = nullptr, Nurse* nurse = nullptr);
 	Date& createDate(int day, int month, int year);
 	bool printDepartments();
 	bool printWorkersInDepartment(Department& department);
+	bool printPatientsInDepartment(Department& department);
 	friend ostream& operator<<(ostream& os, const Hospital& hospital);
+	bool updatePatientInformation(Patient* p,  Department* department = nullptr, Doctor* doctor = nullptr, Nurse* nurse = nullptr);
 
 private:
 	char* name;

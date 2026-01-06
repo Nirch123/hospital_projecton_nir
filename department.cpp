@@ -126,10 +126,11 @@ const char* Department::getName() const { return name; }
 
 const int Department::getWorkersAmount() const { return physicalWorkers; }
 
-//const Department::eWorkerType Department::getWorkerType(Worker* worker) const { return workertype; }
+const int Department::getPatientsAmount() const { return physicalPatients; }
 
 const Worker& Department::getWorkerByIndex(int index) const { return *workerarr[index]; }
 
+const Patient& Department::getPatientByIndex(int index) const { return *patientArr[index]; }
 
 ostream& operator<<(ostream& os, const Department& department)
 {

@@ -12,7 +12,6 @@ using namespace std;
 
 #include "hospital.h"
 
-
 // main function headers
 void AddDepartmentFunc(Hospital& h);
 void RemoveDepartmentFunc(Hospital &h);
@@ -201,7 +200,75 @@ void AddNurseFunc(Hospital& h)
 
 void InsertPatientVisitFunc(Hospital& h)
 {
-	cout << "\nPatient visit system: TBD";
+	char name[20], department[20], reason[100];
+	int id, genderInt, day, month, year, visitD, visitM, visitY, docId, nurseId;
+	Person::eGender gender;
+	cout << "\nPatient visit system";
+	if (h.getDepartmentsCount() == 0)
+	{
+		cout << "\nERROR: No departments exist!\n";
+		return;
+	}
+	cout << "\nInsert patient ID: ";
+	cin >> id;
+	if (h.getPatientById(id) == nullptr) // new patient
+	{
+		cout << "\nNew patient, creating visit card:";
+		cout << "\nInput patient information\nName: ";
+		cin >> name;
+		cout << "Gender: (0) Male (1) Female (2) Other: ";
+		cin >> genderInt;
+		switch (genderInt)
+		{
+		case 0:
+			gender = Person::MALE;
+			break;
+		case 1:
+			gender = Person::FEMALE;
+			break;
+		default:
+			gender = Person::OTHER;
+			break;
+		}
+		cout << "\nDay of birth: ";
+		cin >> day;
+		cout << "\nMonth of birth: ";
+		cin >> month;
+		cout << "\nYear of birth: ";
+		cin >> year;
+		cout << "\nDate of arrival:\nDay: ";
+		cin >> visitD;
+		cout << "\nMonth: ";
+		cin >> visitM;
+		cout << "\nYear: ";
+		cin >> visitY;
+		cout << "\nReason of visit: ";
+		cin >> reason;
+		cout << "\nDepartment: ";
+		cin >> department;
+		cout << "\nAssigned doctor ID: ";
+		cin >> docId;
+		cout << "\nAssigned nurse ID: ";
+		cin >> nurseId;
+		h.addPatient(name, id, h.createDate(day, month, year), gender, reason, 
+			h.createDate(visitD, visitM, visitY), h.getDepartmentByName(department), h.getDoctorById(docId),
+			h.getNurseById(nurseId));
+	}
+	else // existing patient
+	{
+		cout << "\nPatient found in system! Update patient information? (Y/N): ";
+		cin >> name;
+		if (strcmp(name, "Y") == 0)
+		{
+			cout << "\nDepartment: ";
+			cin >> department;
+			cout << "\nAssigned doctor ID: ";
+			cin >> docId;
+			cout << "\nAssigned nurse ID: ";
+			cin >> nurseId;
+			h.updatePatientInformation(h.getPatientById(id), h.getDepartmentByName(department), h.getDoctorById(docId), h.getNurseById(nurseId));
+		}
+	}
 }
 
 void ShowDeparmentInfoFunc(Hospital& h)
@@ -220,7 +287,7 @@ void ShowDeparmentInfoFunc(Hospital& h)
 			h.printWorkersInDepartment(*h.getDepartmentByName(input));
 			break;
 		case 2:
-			//h.printPatientsInDepartment(*h.getDepartmentByName(input));
+			h.printPatientsInDepartment(*h.getDepartmentByName(input));
 			break;
 		default:
 			cout << "\nWrong input please try again.";

@@ -17,11 +17,13 @@ public:
 	~Patient();
 	const char* getPatientDepartment() const;
 	const char* getPatientVisitPurpose() const;
+	const Date& getDateOfArrival() const;
 	Doctor* getPatientDoctor() const;
 	Nurse* getPatientNurse() const;
 	const int getPatientId() const;
 	bool setPatientDepartment(Department* department);
 	friend ostream& operator<<(ostream& os, const Patient& patient);
+	virtual void patientOs(ostream& os);
 	bool setNurse(Nurse* nurse);
 	bool setDoctor(Doctor* doctor);
 
