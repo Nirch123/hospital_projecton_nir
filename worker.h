@@ -21,6 +21,7 @@ public:
 	bool setWorkerDepartment(Department* new_department);
 	friend ostream& operator<<(ostream& os, const Worker& worker);
 	virtual void nurseOs(ostream& os) const {} // polymorphisem - p.54
+	virtual void doctorOs(ostream& os) const {}
 
 
 protected:

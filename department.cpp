@@ -25,10 +25,12 @@ logicalWorkers(other.logicalWorkers), physicalPatients(other.physicalPatients), 
 {
 	this->name = new char[strlen(other.name) + 1];
 	strcpy(name, other.name);
+	workerarr = new Worker * [other.logicalWorkers] {nullptr};
+	patientArr = new Patient * [logicalPatients] {nullptr};
 	for (int i = 0; i < physicalWorkers; i++)
-		other.workerarr[i] = workerarr[i];
+		workerarr[i] = other.workerarr[i];
 	for (int i = 0; i < physicalPatients; i++)
-		other.patientArr[i] = patientArr[i];
+		patientArr[i] = other.patientArr[i];
 }
 
 Department::~Department() 

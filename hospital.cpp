@@ -1,6 +1,9 @@
 #pragma warning (disable: 4996)
 #include "hospital.h"
 #include "worker.h"
+#include "doctor.h"
+#include "nurse.h"
+#include "date.h"
 
 
 Hospital::Hospital(const char* name, Researchcenter& rc) : researchCenter(rc)
@@ -97,7 +100,7 @@ bool Hospital::printWorkersInDepartment(Department& department)
 	return true;
 }
 
-const Department* Hospital::getDepartmentByName(const char* dName) const
+Department* Hospital::getDepartmentByName(const char* dName) const
 {
 	for (int i = 0; i < getDepartmentsCount(); i++)
 	{
@@ -105,4 +108,26 @@ const Department* Hospital::getDepartmentByName(const char* dName) const
 			return (departments[i]);
 	}
 	return nullptr;
+}
+
+bool Hospital::addDoctor(const char* name, const int id, Date& birthdate,
+	const char* expertise, Person::eGender gender, Department* department)
+{
+	Doctor* d = new Doctor(name,id,birthdate,expertise,gender,department);
+	department->addWorker(d);
+	return true;
+}
+
+bool Hospital::addNurse(const char* name, const int id,
+	const Date& birthdate, Person::eGender gender, Department* department, int YoE)
+{
+	Nurse* n = new Nurse(name, id, birthdate, gender, department, YoE);
+	department->addWorker(n);
+	return true;
+}
+
+Date& Hospital::createDate(int day, int month, int year)
+{
+	date = new Date(day,month,year);
+	return *date;
 }

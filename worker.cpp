@@ -33,6 +33,7 @@ ostream& operator<<(ostream& os, const Worker& worker)
 	os << "\tWorker Id: " << worker.getWorkerId() << "\n\tName: " << worker.getName()
 		<< "\n\tGender: " << worker.getGender() << "\n\tDepartment: " << worker.department->getName();
 	worker.nurseOs(os);
+	worker.doctorOs(os);
 	return os;
 }
 
