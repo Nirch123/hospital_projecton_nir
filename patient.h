@@ -23,6 +23,7 @@ public:
 	const int getPatientId() const;
 	bool setPatientDepartment(Department* department);
 	friend ostream& operator<<(ostream& os, const Patient& patient);
+	friend ostream& operator<<(ostream& os, const Patient* patient);
 	virtual void patientOs(ostream& os);
 	bool setNurse(Nurse* nurse);
 	bool setDoctor(Doctor* doctor);

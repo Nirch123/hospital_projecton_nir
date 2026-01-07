@@ -19,9 +19,12 @@ void AddDoctorFunc(Hospital& h);
 void AddNurseFunc(Hospital &h);
 void InsertPatientVisitFunc(Hospital &h);
 void ShowDeparmentInfoFunc(Hospital &h);
+void ShowMedicalStaffFunc(Hospital& h);
+void SearchPatientIDFunc(Hospital& h);
 
 
 
+// interaction menu system
 void main()
 {
 	char input1[20], input2[20];
@@ -85,10 +88,10 @@ void main()
 			ShowDeparmentInfoFunc(*h);
 			break;
 		case 9:
-			//ShowMedicalStaffFunc();
+			ShowMedicalStaffFunc(*h);
 			break;
 		case 10:
-			//SearchPatientIDFunc();
+			SearchPatientIDFunc(*h);
 			break;
 		case 11:
 			break;
@@ -300,6 +303,42 @@ void ShowDeparmentInfoFunc(Hospital& h)
 	else
 		cout << "\nERROR: No such department exists!\n";
 }
+
+void ShowMedicalStaffFunc(Hospital& h)
+{
+	if (h.getDepartmentsCount() == 0)
+	{
+		cout << "\nERROR: please add a department and staff first!\n";
+		return;
+	}
+	for (int i = 0; i < h.getDepartmentsCount(); i++)
+	{
+		cout << "\nDepartment: " << h.getDepartmentName(i);
+		if (h.getDepartmentByIndex(i)->getWorkersAmount() == 0)
+			cout << "\nThere are no workers in this department\n";
+		else
+			cout << "\nWorkers: " 
+				<< "\n" << h.printWorkersInDepartment(*h.getDepartmentByIndex(i));
+	}
+}
+
+void SearchPatientIDFunc(Hospital& h)
+{
+	int id;
+	cout << "\nInsert patient ID to search: ";
+	cin >> id;
+	for (int i = 0; i < h.getDepartmentsCount(); i++)
+	{
+		if (h.getPatientById(id) != nullptr)
+		{
+			cout << "\nPatient found in department: " << h.getDepartmentName(i)
+				<< "\nPatient name: " << h.getPatientNameById(id) << "\n";
+			return;
+		}
+	}
+	cout << "\nPatient was not found!\n";
+}
+
 
 
 //  ############################# hardcoded hospital testbench ####################################

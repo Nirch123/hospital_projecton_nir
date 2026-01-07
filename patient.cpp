@@ -53,7 +53,7 @@ bool Patient::setDoctor(Doctor* new_doctor)
 	return true;
 }
 
-ostream& operator<<(ostream& os, const Patient& patient)
+ostream& operator<<(ostream& os, const Patient& patient) // by refrence
 {
 	os << "\tId: " << patient.getId() << "\n\tName: " << patient.getName()
 		<< "\n\tGender: " << patient.getGender() << "\n\tDOB: " << patient.birthdate << "\tPatient Id : " << patient.getPatientId()
@@ -62,6 +62,17 @@ ostream& operator<<(ostream& os, const Patient& patient)
 		<< "\n\tAssigned Nurse: " << *patient.getPatientNurse();
 	return os;
 }
+
+ostream& operator<<(ostream& os, const Patient* patient) // by pointer (for singular patient printing)
+{
+	os << "\tId: " << patient->getId() << "\n\tName: " << patient->getName()
+		<< "\n\tGender: " << patient->getGender() << "\n\tDOB: " << patient->birthdate << "\tPatient Id : " << patient->getPatientId()
+		<< "\n\tDepartment: " << patient->department->getName() << "\n\tDOA: " << patient->getDateOfArrival()
+		<< "\tVisit reason: " << patient->getPatientVisitPurpose() << "\n\tAssigned Doctor: " << *patient->getPatientDoctor()
+		<< "\n\tAssigned Nurse: " << *patient->getPatientNurse();
+	return os;
+}
+
 
 void Patient::patientOs(ostream& os)
 {

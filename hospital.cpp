@@ -124,6 +124,8 @@ Department* Hospital::getDepartmentByName(const char* dName) const
 	return nullptr;
 }
 
+Department* Hospital::getDepartmentByIndex(const int index) const { return departments[index]; }
+
 bool Hospital::addDoctor(const char* name, const int id, Date& birthdate,
 	const char* expertise, Person::eGender gender, Department* department)
 {
@@ -199,11 +201,19 @@ Patient* Hospital::getPatientById(int id)
 	return nullptr; // patient not found
 }
 
-
 bool Hospital::updatePatientInformation(Patient* p, Department* department, Doctor* doctor, Nurse* nurse)
 {
 	p->setPatientDepartment(department);
 	p->setDoctor(doctor);
 	p->setNurse(nurse);
 	return true;
+}
+
+const char* Hospital::getPatientNameById(int id)
+{
+	Patient* temp = getPatientById(id);
+	if (temp != nullptr)
+		return temp->getName();
+	else
+		return "ERROR";
 }

@@ -19,9 +19,11 @@ public:
 	const int getDepartmentsCount() const;
 	const char* getResearchCenterName() const;
 	Department* getDepartmentByName(const char* dName) const;
+	Department* getDepartmentByIndex(const int index) const;
 	Nurse* getNurseById(int id);
 	Doctor* getDoctorById(int id);
 	Patient* getPatientById(int id);
+	const char* getPatientNameById(int id);
 	bool addDepartment(Department& department);
 	bool removeDepartment(const Department& department);
 	bool addDoctor(const char* name, const int id, Date& birthdate,
