@@ -18,9 +18,10 @@ Hospital::Hospital(const char* name, Researchcenter& rc) : researchCenter(rc)
 
 Hospital::~Hospital()
 {
+	cout << "DEBUG: in ~Hospital()";
 	for (int i = 0; i < physicalDepartments; i++)
 		delete departments[i]; // pointer only
-	delete[] departments;
+	delete departments;
 	delete[] name;
 }
 
@@ -113,7 +114,6 @@ bool Hospital::printPatientsInDepartment(Department& department)
 	return true;
 }
 
-
 Department* Hospital::getDepartmentByName(const char* dName) const
 {
 	for (int i = 0; i < getDepartmentsCount(); i++)
@@ -162,7 +162,7 @@ Nurse* Hospital::getNurseById(int id)
 	{
 		for (int j = 0; j < departments[i]->physicalWorkers; j++)
 		{
-			if (id == (departments[i]->workerarr[j]->getId()))
+			if (id == (departments[i]->workerarr[j]->getWorkerId()))
 				return dynamic_cast<Nurse*>(departments[i]->workerarr[j]); // nurse found
 		}
 	}
@@ -177,7 +177,7 @@ Doctor* Hospital::getDoctorById(int id)
 	{
 		for (int j = 0; j < departments[i]->physicalWorkers; j++)
 		{
-			if (id == (departments[i]->workerarr[j]->getId()))
+			if (id == (departments[i]->workerarr[j]->getWorkerId()))
 				return dynamic_cast<Doctor*>(departments[i]->workerarr[j]); // doctor found
 		}
 	}

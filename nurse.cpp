@@ -27,9 +27,10 @@ bool Nurse::setNurseYears(int YoE)
 
 ostream& operator<<(ostream& os, const Nurse& nurse)
 {
-	os << "Worker Id: " << nurse.getWorkerId() << "\nName: " << nurse.getName()
-		<< "\nGender: " << nurse.getGender() << "\nDepartment: " << nurse.department->getName()
-		<< "\nYoE: " << nurse.YoE;
+	if (&(nurse) == nullptr)
+		os << "Nurse not assigned";
+	else
+		os << nurse.getName();
 	return os;
 }
 

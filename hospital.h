@@ -13,7 +13,7 @@ class Hospital
 {
 public:
 	Hospital(const char* name, Researchcenter& rc);
-	~Hospital();
+	virtual ~Hospital();
 	const char* getName() const;
 	const char* getDepartmentName(int num) const;
 	const int getDepartmentsCount() const;

@@ -35,6 +35,7 @@ logicalWorkers(other.logicalWorkers), physicalPatients(other.physicalPatients), 
 
 Department::~Department() 
 {
+	cout << "\nDEBUG: in ~Department()";
 	if (name != nullptr)
 		delete[] name; 
 }

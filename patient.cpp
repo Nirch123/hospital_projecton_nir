@@ -16,7 +16,11 @@ Patient::Patient(const char* name, int id, const Date& birthdate, eGender gender
 	strcpy(this->VisitPurpose, visitpurpose);
 }
 
-Patient::~Patient() {}
+Patient::~Patient() 
+{
+	cout << "\nDEBUG: in ~Patient()";
+	delete[] VisitPurpose;
+}
 
 const int Patient::getPatientId() const { return PatientId; }
 
@@ -54,8 +58,8 @@ ostream& operator<<(ostream& os, const Patient& patient)
 	os << "\tId: " << patient.getId() << "\n\tName: " << patient.getName()
 		<< "\n\tGender: " << patient.getGender() << "\n\tDOB: " << patient.birthdate << "\tPatient Id : " << patient.getPatientId()
 		<< "\n\tDepartment: " << patient.department->getName() << "\n\tDOA: " << patient.getDateOfArrival()
-		<< "\tVisit reason: " << patient.getPatientVisitPurpose() << "\n\tAssigned Doctor: " << patient.getPatientDoctor()
-		<< "\n\tAssigned Nurse: " << patient.getPatientNurse();
+		<< "\tVisit reason: " << patient.getPatientVisitPurpose() << "\n\tAssigned Doctor: " << *patient.getPatientDoctor()
+		<< "\n\tAssigned Nurse: " << *patient.getPatientNurse();
 	return os;
 }
 

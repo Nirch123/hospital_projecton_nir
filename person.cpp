@@ -19,11 +19,17 @@ Person::Person(const char* name, Date& birthdate) : birthdate(birthdate)
 
 Person::~Person()
 {
-	delete[] name;
 	cout << "\nDEBUG: in Person::~Person()";
+	delete[] name;
 }
 
-const char* Person::getName() const { return name; }
+const char* Person::getName() const 
+{ 
+	if (this == nullptr)
+		return "NULL";
+	else
+		return name; 
+}
 
 const int Person::getId() const { return id; }
 

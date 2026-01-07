@@ -11,7 +11,11 @@ Doctor::Doctor(const char* name, const int id, Date& birthdate, const char* expe
 	Worker::setWorkerType(Worker::eWorkerType::DOCTOR);
 }
 
-Doctor::~Doctor() {}
+Doctor::~Doctor() 
+{
+	cout << "\nDEBUG: in ~Doctor()";
+	delete[] expertise;
+}
 
 void Doctor::setDoctorExpertise(const char* new_expertise) { strcpy(expertise, new_expertise); }
 
@@ -19,9 +23,10 @@ const char* Doctor::getDoctorExpertise() const { return expertise; }
 
 ostream& operator<<(ostream& os, const Doctor& doctor)
 {
-	os << "Worker Id: " << doctor.getWorkerId() << " Name: " << doctor.getName()
-		<< " Gender: " << doctor.getGender() << " Department: " << doctor.department->getName()
-		<< " Expertise: " << doctor.expertise;
+	if (&(doctor) == nullptr)
+		os << "Doctor not assigned";
+	else
+		os << "Dr." << doctor.getName();
 	return os;
 }
 

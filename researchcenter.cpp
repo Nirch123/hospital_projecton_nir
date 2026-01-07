@@ -8,7 +8,11 @@ Researchcenter::Researchcenter(const char* name) : NumOfResearchers(0)
 	strcpy(this->name, name); 
 }
 
-Researchcenter::~Researchcenter() { delete[] name; }
+Researchcenter::~Researchcenter() 
+{
+	cout << "\nDEBUG: in ~Researchcenter()";
+	delete[] name; 
+}
 
 const char* Researchcenter::getName() const { return name; }
 

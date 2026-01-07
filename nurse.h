@@ -13,7 +13,7 @@ class Nurse : public Worker
 {
 public:
 	Nurse(const char* name, const int id, const Date& birthdate, eGender gender, Department *department = nullptr , int YoE = 0);
-	~Nurse();
+	virtual ~Nurse();
 	bool setNurseYears(int YoE);
 	const int getNurseYears() const;
 	friend ostream& operator<<(ostream& os, const Nurse& nurse);

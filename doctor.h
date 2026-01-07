@@ -13,7 +13,7 @@ class Doctor : public Worker
 	public:
 		Doctor(const char* name, const int id, Date& birthdate, const char* expertise,
 			eGender gender, Department* department = nullptr);
-		~Doctor();
+		virtual ~Doctor();
 		void setDoctorExpertise(const char* expertise);
 		const char* getDoctorExpertise() const;
 		friend ostream& operator<<(ostream& os, const Doctor& doctor);

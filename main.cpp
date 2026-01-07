@@ -31,8 +31,8 @@ void main()
 	cin >> input1;
 	cout << "Please enter research center name: ";
 	cin >> input2;
-	Researchcenter rc(input2);
-	Hospital h(input1, rc);
+	Researchcenter *rc = new Researchcenter(input2);
+	Hospital *h = new Hospital(input1, *rc);
 	do
 	{
 		cout << "\nPlease select an option by entering corresponding number:" <<
@@ -52,28 +52,28 @@ void main()
 		switch (select)
 		{
 		case 1:
-			AddDepartmentFunc(h);
+			AddDepartmentFunc(*h);
 			break;
 		case 2:
-			if (h.getDepartmentsCount() != 0)
-				RemoveDepartmentFunc(h);
+			if (h->getDepartmentsCount() != 0)
+				RemoveDepartmentFunc(*h);
 			else
 				cout << "\nERROR: There are no departments!\n";
 			break;
 		case 3:
-			if (h.getDepartmentsCount() != 0)
-				AddNurseFunc(h);
+			if (h->getDepartmentsCount() != 0)
+				AddNurseFunc(*h);
 			else
 				cout << "\nERROR: Please create a department first!\n";
 			break;
 		case 4:
-			if (h.getDepartmentsCount() != 0)
-				AddDoctorFunc(h);
+			if (h->getDepartmentsCount() != 0)
+				AddDoctorFunc(*h);
 			else
 				cout << "\nERROR: Please create a department first!\n";
 			break;
 		case 5:
-			InsertPatientVisitFunc(h);
+			InsertPatientVisitFunc(*h);
 			break;
 		case 6:
 			//AddResearcherFunc();
@@ -82,7 +82,7 @@ void main()
 			//AddPaperFunc();
 			break;
 		case 8:
-			ShowDeparmentInfoFunc(h);
+			ShowDeparmentInfoFunc(*h);
 			break;
 		case 9:
 			//ShowMedicalStaffFunc();
@@ -97,6 +97,9 @@ void main()
 			break;
 		}
 	} while (select != 11);
+
+	delete h;
+	delete rc;
 }
 
 void AddDepartmentFunc(Hospital &h)
@@ -246,9 +249,9 @@ void InsertPatientVisitFunc(Hospital& h)
 		cin >> reason;
 		cout << "\nDepartment: ";
 		cin >> department;
-		cout << "\nAssigned doctor ID: ";
+		cout << "\nAssigned doctor worker ID: ";
 		cin >> docId;
-		cout << "\nAssigned nurse ID: ";
+		cout << "\nAssigned nurse worker ID: ";
 		cin >> nurseId;
 		h.addPatient(name, id, h.createDate(day, month, year), gender, reason, 
 			h.createDate(visitD, visitM, visitY), h.getDepartmentByName(department), h.getDoctorById(docId),
@@ -262,9 +265,9 @@ void InsertPatientVisitFunc(Hospital& h)
 		{
 			cout << "\nDepartment: ";
 			cin >> department;
-			cout << "\nAssigned doctor ID: ";
+			cout << "\nAssigned doctor worker ID: ";
 			cin >> docId;
-			cout << "\nAssigned nurse ID: ";
+			cout << "\nAssigned nurse worker ID: ";
 			cin >> nurseId;
 			h.updatePatientInformation(h.getPatientById(id), h.getDepartmentByName(department), h.getDoctorById(docId), h.getNurseById(nurseId));
 		}
