@@ -40,6 +40,7 @@ public:
 	//bool printPatientsInDepartment(Department& department);
 	friend ostream& operator<<(ostream& os, const Hospital& hospital);
 	bool updatePatientInformation(Patient* p,  Department* department = nullptr, Doctor* doctor = nullptr, Nurse* nurse = nullptr);
+	Researchcenter* getResearchCenter();
 
 private:
 	char* name;

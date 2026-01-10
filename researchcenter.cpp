@@ -82,3 +82,17 @@ ostream& operator<<(ostream& os, const Researchcenter& researchcenter)
 		<< " (Researchers count: " << researchcenter.physicalResearchers << ")";
 	return os;
 }
+
+bool HaveMoreArticle(const Researcher& r1, const Researcher& r2)
+{
+	return r1 > r2;
+}
+
+Researchcenter& Researchcenter::operator+=(const Researcher& other)
+{
+	Researcher* newR = new Researcher(other);
+
+	this->addResearcher(newR);
+
+	return *this;
+}

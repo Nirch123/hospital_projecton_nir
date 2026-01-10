@@ -23,6 +23,10 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Researchcenter& researchcenter);
 
+	bool HaveMoreArticle(const Researcher& r1, const Researcher& r2);
+
+	Researchcenter& operator+=(const Researcher& researcher);
+
 private:
 	char* name;
 

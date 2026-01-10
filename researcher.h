@@ -17,6 +17,7 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Researcher& researcher);
 	virtual void researcherOs(ostream& os) const;
+	bool operator>(const Researcher& other) const;
 
 private:
 	bool isDoctor;

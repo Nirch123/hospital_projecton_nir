@@ -292,3 +292,8 @@ const char* Hospital::getPatientNameById(int id)
 	else
 		return "ERROR";*/
 }
+
+Researchcenter* Hospital::getResearchCenter()
+{
+	return &researchCenter; 
+}

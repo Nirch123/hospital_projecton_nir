@@ -10,6 +10,21 @@ Researcher::Researcher(const char* name, const int id, const Date& birthdate, eG
 	articles = new Article * [logicalArticles];
 }
 
+Researcher::Researcher(const Researcher& other)
+	: Worker((Worker&)other), isDoctor(other.isDoctor)
+{
+	this->logicalArticles = other.logicalArticles;
+	this->physicalArticles = other.physicalArticles;
+
+
+	this->articles = new Article * [this->logicalArticles];
+
+	for (int i = 0; i < this->physicalArticles; i++)
+	{
+		this->articles[i] = new Article(*other.articles[i]);
+	}
+}
+
 Researcher::~Researcher()
 {
 	for (int i = 0; i < physicalArticles; i++)
@@ -38,13 +53,9 @@ int Researcher::getNumOfArticles() const { return physicalArticles; }
 
 ostream& operator<<(ostream& os, const Researcher& researcher)
 {
-	// שינוי קריטי: לא קוראים ל-(Worker&)researcher כדי לא להדפיס מחלקה ולגרום לקריסה
-	// מדפיסים את נתוני העובד ידנית
 	os << "\n\tResearcher Info:";
-	os << "\n\tName: " << researcher.getName();     // ירושה מ-Person
-	os << "\n\tID: " << researcher.getWorkerId();   // ירושה מ-Worker
-	// דילגנו על הדפסת המחלקה!
-
+	os << "\n\tName: " << researcher.getName();    
+	os << "\n\tID: " << researcher.getWorkerId();   
 	os << "\n\tIs Doctor: " << (researcher.isDoctor ? "Yes" : "No");
 	os << "\n\tArticles count: " << researcher.physicalArticles;
 	if (researcher.physicalArticles > 0)
@@ -60,3 +71,10 @@ void Researcher::researcherOs(ostream& os) const
 {
 	os << "\n\tTitle: Researcher";
 }
+
+bool Researcher::operator>(const Researcher& other) const
+{
+	return this->getNumOfArticles() > other.getNumOfArticles();
+}
+
+

@@ -28,6 +28,7 @@ void SearchPatientIDFunc(Hospital& h);
 void AddResearcherFunc(Hospital& h, Researchcenter& rc);
 void AddPaperFunc(Researchcenter& rc, Hospital& h);
 void ShowResearchCenterInfoFunc(Researchcenter& rc);
+void HaveMoreArticleFunc(Researchcenter& rc);
 
 
 
@@ -43,6 +44,8 @@ void main()
 	cin >> research_center_name;
 
 	Hospital h(hospital_name, research_center_name);
+
+	Researchcenter* rc = h.getResearchCenter();
 
 	//HARDCODED BENCHTEST
 	//Hospital h("Ichilov", "Erison");
@@ -60,7 +63,8 @@ void main()
 			"\n(9)\tShow all medical staff" <<
 			"\n(10)\tSearch patient by ID" <<
 			"\n(11)\tShow all research center staff" <<
-			"\n(12)\tExit" <<
+			"\n(12)\tCheck which researcher has more articles" <<
+			"\n(13)\tExit" <<
 			"\nUser Input: ";
 		cin >> select;
 		switch (select)
@@ -90,10 +94,10 @@ void main()
 			InsertPatientVisitFunc(h);
 			break;
 		case 6:
-			//AddResearcherFunc(h, rc);
+			AddResearcherFunc(h,*rc);
 			break;
 		case 7:
-			//AddPaperFunc(rc, h);
+			AddPaperFunc(*rc, h);
 			break;
 		case 8:
 			ShowDeparmentInfoFunc(h);
@@ -105,15 +109,18 @@ void main()
 			SearchPatientIDFunc(h);
 			break;
 		case 11:
-			//ShowResearchCenterInfoFunc(rc);
+			ShowResearchCenterInfoFunc(*rc);
 			break;
 		case 12:
+			HaveMoreArticleFunc(*rc);
+			break;
+		case 13:
 			break;
 		default:
 			cout << "\nInvalid input, try again\n";
 			break;
 		}
-	} while (select != 12);
+	} while (select != 13);
 }
 
 void AddDepartmentFunc(Hospital &h)
@@ -426,9 +433,9 @@ void AddResearcherFunc(Hospital& h, Researchcenter& rc)
 	cin >> isDocInt;
 	isDoctor = (isDocInt == 1);
 
-	Researcher* newR = new Researcher(name, id, h.createDate(day, month, year), gender, isDoctor);
+	Researcher temp(name, id, h.createDate(day, month, year), gender, isDoctor);
 
-	rc.addResearcher(newR);
+	rc += temp;
 
 	cout << "\nResearcher added successfully!\n";
 }
@@ -467,6 +474,36 @@ void ShowResearchCenterInfoFunc(Researchcenter& rc)
 	
 	rc.printAllResearchers();
 	
+}
+
+void HaveMoreArticleFunc(Researchcenter& rc)
+{
+	int id1, id2;
+	cout << "\nEnter Researcher 1 ID:";
+	cin >> id1;
+	cout << "\nEnter Researcher 2 ID:";
+	cin >> id2;
+
+	const Researcher* r1 = rc.getResearcherById(id1);
+	const Researcher* r2 = rc.getResearcherById(id2);
+
+	if (r1 == nullptr || r2 == nullptr)
+	{
+		cout << "\nERROR: One or both researchers not found!";
+		return;
+	}
+
+	if (*r1 > *r2)
+	{
+		cout << "\nResearcher 1 have more articles";
+	}
+	else if (*r2 > *r1)
+	{
+		cout << "\nResearcher 2 have more articles";
+	}
+	else
+		cout << "\nThe Researchers have the same amount of articles.";
+
 }
 
 
