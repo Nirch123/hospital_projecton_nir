@@ -1,13 +1,21 @@
 #pragma warning (disable: 4996)
 #include "doctor.h"
 #include "department.h"
+#include "worker.h"
 
 
-Doctor::Doctor(const char* name, const int id, Date& birthdate, const char* expertise, 
+Doctor::Doctor(const char* name, const int id, const Date& birthdate, const char* expertise, 
 	eGender gender, Department* department) : Worker(name, id, birthdate, gender, department)
 {
 	this->expertise = new char[strlen(expertise) + 1];
 	strcpy(this->expertise,expertise);
+	Worker::setWorkerType(Worker::eWorkerType::DOCTOR);
+}
+
+Doctor::Doctor(Doctor& other) : Worker(other)
+{
+	expertise = new char[strlen(other.expertise) + 1];
+	strcpy(expertise, other.expertise);
 	Worker::setWorkerType(Worker::eWorkerType::DOCTOR);
 }
 

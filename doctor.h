@@ -11,8 +11,9 @@ class Department;
 class Doctor : public Worker
 {
 	public:
-		Doctor(const char* name, const int id, Date& birthdate, const char* expertise,
+		Doctor(const char* name, const int id, const Date& birthdate, const char* expertise,
 			eGender gender, Department* department = nullptr);
+		Doctor(Doctor& other);
 		virtual ~Doctor();
 		void setDoctorExpertise(const char* expertise);
 		const char* getDoctorExpertise() const;

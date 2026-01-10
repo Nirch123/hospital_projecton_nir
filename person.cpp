@@ -17,6 +17,13 @@ Person::Person(const char* name, Date& birthdate) : birthdate(birthdate)
 	gender = eGender::MALE;
 }
 
+Person::Person(Person& other) : id(other.id), birthdate(other.birthdate)
+{
+	gender = other.gender;
+	name = new char[strlen(other.name) + 1];
+	strcpy(name, other.name);
+}
+
 Person::~Person()
 {
 	cout << "\nDEBUG: in Person::~Person()";
@@ -34,3 +41,5 @@ const char* Person::getName() const
 const int Person::getId() const { return id; }
 
 const int Person::getGender() const { return gender; }
+
+const Date& Person::getBirthDate() const { return birthdate; }

@@ -3,12 +3,27 @@
 
 #include "worker.h"
 #include "department.h"
+#include "doctor.h"
 
-int Worker::idCounter = 100;
+//int Worker::idCounter = 100;
 
-Worker::Worker(const char* name, const int id, const Date& birthdate, eGender gender, Department* department) : Person(name, id, birthdate, gender), workerId(++idCounter)
+Worker::Worker(const char* name, const int id, const Date& birthdate, eGender gender, Department* department) 
+	: Person(name, id, birthdate, gender)
 {
-	setWorkerDepartment(department);
+	if (department != nullptr)
+		setWorkerDepartment(department);
+}
+
+Worker::Worker(Worker& other)
+	: Person(other.name, other.id, other.birthdate, other.gender)
+{
+	department = other.department;
+}
+
+Worker::Worker(Doctor& other)
+	: Person(other)
+{
+	department = other.department;
 }
 
 Worker::~Worker()
@@ -27,6 +42,13 @@ bool Worker::setWorkerDepartment(Department* new_department)
 		department->addWorker(this);
 	return true;
 }
+
+bool Worker::setWorkerId(int workerId)
+{
+	this->workerId = workerId;
+	return true;
+}
+
 
 ostream& operator<<(ostream& os, const Worker& worker)
 {

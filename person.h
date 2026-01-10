@@ -1,7 +1,7 @@
 #ifndef __PERSON_H
 #define __PERSON_H
 
-class Date; //change to include date class if nesscery
+#include "date.h"
 
 class Person
 {
@@ -13,15 +13,15 @@ public:
 	const char* getName() const;
 	const int getId() const;
 	const int getGender() const;
+	const Date& getBirthDate() const;
 
 protected:
 	char* name;
 	int id;
-	const Date& birthdate;
+	const Date birthdate;
 	eGender gender;
-
-private:
 	Person(Person& other);
+	
 };
 
 

@@ -6,14 +6,21 @@
 #include "date.h"
 #include "patient.h"
 
+int Hospital::idCounter = 100;
 
-Hospital::Hospital(const char* name, Researchcenter& rc) : researchCenter(rc)
+Hospital::Hospital(const char* name, const char* rc_name) : researchCenter(rc_name)
 {
 	this->name = new char[strlen(name)+1];
 	strcpy(this->name, name);
 	departments = new Department* [1];
+	staff = new Worker* [1];
+	patients = new Patient* [1];
 	logicalDepartments = 1;
 	physicalDepartments = 0;
+	physicalStaff = 0;
+	logicalStaff = 1;
+	physicalPatients = 0;
+	logicalPatients = 1;
 }	
 
 Hospital::~Hospital()
@@ -22,6 +29,7 @@ Hospital::~Hospital()
 	for (int i = 0; i < physicalDepartments; i++)
 		delete departments[i]; // pointer only
 	delete departments;
+	delete[] staff; // check if it deletes all staff! (shows in DEBUG)
 	delete[] name;
 }
 
@@ -29,9 +37,11 @@ const char* Hospital::getName() const { return name; }
 
 const int Hospital::getDepartmentsCount() const { return physicalDepartments; }
 
+const int Hospital::getStaffAmount() const { return physicalStaff; }
+
 const char* Hospital::getResearchCenterName() const { return researchCenter.getName(); }
 
-bool Hospital::addDepartment(Department& department)
+bool Hospital::addDepartment(const char* departmentName)
 {
 	if (physicalDepartments == logicalDepartments) // extension of departments array
 	{
@@ -42,7 +52,7 @@ bool Hospital::addDepartment(Department& department)
 		delete[] departments;
 		departments = temp;
 	}
-	departments[physicalDepartments] = new Department(department);
+	departments[physicalDepartments] = new Department(departmentName);
 	physicalDepartments++;
 	return true;
 }
@@ -80,39 +90,37 @@ const char* Hospital::getDepartmentName(int num) const
 	return departments[num]->getName();
 }
 
-bool Hospital::printDepartments() // printing in "master class" allowed?
+const bool Hospital::doesDepartmentExist(const char* departmentName) const
 {
-	cout << "\nHospital departments are : \n";
-	for (int i = 0; i < getDepartmentsCount(); i++)
-		cout << "(" << i << ") " << getDepartmentName(i) << "\n";
-	return true;
+	for (int i = 0; i < physicalDepartments; i++)
+	{
+		if (strcmp(departmentName, departments[i]->getName()) == 0)
+			return true;
+	}
+	return false;
 }
 
-bool Hospital::printWorkersInDepartment(Department& department)
+
+const int Hospital::getDepartmentWorkersCount(const char* departmentName) const
 {
-	cout << "\nDepartment " << department << " workers are : \n";
-	if (department.getWorkersAmount() == 0)
-		cout << "There are no workers in this department\n";
-	else
+	if (doesDepartmentExist(departmentName) == true)
 	{
-		for (int i = 0; i < department.getWorkersAmount(); i++)
-			cout << "(" << i << ") " << department.getWorkerByIndex(i) << "\n\n";
+		return getDepartmentByName(departmentName)->getWorkersAmount();
 	}
-	return true;
+	else
+		return -1;
 }
 
-bool Hospital::printPatientsInDepartment(Department& department)
+const int Hospital::getDepartmentPatientsCount(const char* departmentName) const
 {
-	cout << "\nDepartment " << department << " patients are : \n";
-	if (department.getPatientsAmount() == 0)
-		cout << "There are no patients in this department\n";
-	else
+	if (doesDepartmentExist(departmentName) == true)
 	{
-		for (int i = 0; i < department.getPatientsAmount(); i++)
-			cout << "(" << i << ") " << department.getPatientByIndex(i) << "\n\n";
+		return getDepartmentByName(departmentName)->getPatientsAmount();
 	}
-	return true;
+	else
+		return -1;
 }
+
 
 Department* Hospital::getDepartmentByName(const char* dName) const
 {
@@ -126,19 +134,55 @@ Department* Hospital::getDepartmentByName(const char* dName) const
 
 Department* Hospital::getDepartmentByIndex(const int index) const { return departments[index]; }
 
-bool Hospital::addDoctor(const char* name, const int id, Date& birthdate,
-	const char* expertise, Person::eGender gender, Department* department)
+bool Hospital::addDoctor(Doctor& doctor)
 {
-	Doctor* d = new Doctor(name,id,birthdate,expertise,gender,department);
-	department->addWorker(d);
+	Doctor* d = new Doctor(doctor);
+	d->setWorkerId(idCounter++);
+	staff[physicalStaff] = d;
+	++physicalStaff;
+	if (physicalStaff == logicalStaff) // extension of staff array
+	{
+		logicalStaff = logicalStaff * 2;
+		Worker** temp = new Worker * [logicalStaff];
+		for (int i = 0; i < physicalStaff; i++)
+			temp[i] = staff[i];
+		delete[] staff;
+		staff = temp;
+	}
+	if (doctor.getWorkerDepartment() != nullptr)
+		getDepartmentByName((staff[physicalStaff-1])->getWorkerDepartment())->addWorker(staff[physicalStaff-1]);	
 	return true;
 }
 
-bool Hospital::addNurse(const char* name, const int id,
-	const Date& birthdate, Person::eGender gender, Department* department, int YoE)
+bool Hospital::operator+=(Doctor& doctor)
 {
-	Nurse* n = new Nurse(name, id, birthdate, gender, department, YoE);
-	department->addWorker(n);
+	addDoctor(doctor);
+	return true;
+}
+
+bool Hospital::addNurse(Nurse& nurse)
+{
+	Nurse* n = new Nurse(nurse);
+	n->setWorkerId(idCounter++);
+	staff[physicalStaff] = n;
+	++physicalStaff;
+	if (physicalStaff == logicalStaff) // extension of staff array
+	{
+		logicalStaff = logicalStaff * 2;
+		Worker** temp = new Worker * [logicalStaff];
+		for (int i = 0; i < physicalStaff; i++)
+			temp[i] = staff[i];
+		delete[] staff;
+		staff = temp;
+	}
+	if (nurse.getWorkerDepartment() != nullptr)
+		getDepartmentByName((staff[physicalStaff - 1])->getWorkerDepartment())->addWorker(staff[physicalStaff - 1]);
+	return true;
+}
+
+bool Hospital::operator+=(Nurse& nurse)
+{
+	addNurse(nurse);
 	return true;
 }
 
@@ -146,19 +190,37 @@ bool Hospital::addPatient(const char* name, int id, const Date& birthdate, Perso
 	const Date& dateofarrival, Department* department, Doctor* doctor, Nurse* nurse)
 {
 	Patient* p = new Patient(name, id, birthdate, gender, visitpurpose, dateofarrival, department, doctor, nurse);
+	patients[physicalPatients] = p;
+	++physicalPatients;
+	if (physicalPatients == logicalPatients) // extension of patients array
+	{
+		logicalPatients = logicalPatients * 2;
+		Patient** temp = new Patient * [logicalPatients];
+		for (int i = 0; i < physicalPatients; i++)
+			temp[i] = patients[i];
+		delete[] patients;
+		patients = temp;
+	}
 	department->addPatient(p);
 	return true;
 }
 
 Date& Hospital::createDate(int day, int month, int year)
 {
-	date = new Date(day,month,year);
-	return *date;
+	Date tempDate(day,month,year);
+	return tempDate;
 }
 
 Nurse* Hospital::getNurseById(int id)
 {
-	if (physicalDepartments == 0)
+	if (physicalStaff == 0)
+		return nullptr;
+	for (int i = 0; i < physicalStaff; i++)
+	{
+		if (staff[i]->getWorkerId() == id)
+			return dynamic_cast<Nurse*>(staff[i]);
+	}
+	/*if (physicalDepartments == 0)
 		return nullptr; // no departments yet
 	for (int i = 0; i < physicalDepartments; i++)
 	{
@@ -167,13 +229,20 @@ Nurse* Hospital::getNurseById(int id)
 			if (id == (departments[i]->workerarr[j]->getWorkerId()))
 				return dynamic_cast<Nurse*>(departments[i]->workerarr[j]); // nurse found
 		}
-	}
+	}*/
 	return nullptr; // nurse not found
 }
 
 Doctor* Hospital::getDoctorById(int id)
 {
-	if (physicalDepartments == 0)
+	if (physicalStaff == 0)
+		return nullptr;
+	for (int i = 0; i < physicalStaff; i++)
+	{
+		if (staff[i]->getWorkerId() == id)
+			return dynamic_cast<Doctor*>(staff[i]);
+	}
+	/*if (physicalDepartments == 0)
 		return nullptr; // no departments yet
 	for (int i = 0; i < physicalDepartments; i++)
 	{
@@ -182,7 +251,7 @@ Doctor* Hospital::getDoctorById(int id)
 			if (id == (departments[i]->workerarr[j]->getWorkerId()))
 				return dynamic_cast<Doctor*>(departments[i]->workerarr[j]); // doctor found
 		}
-	}
+	}*/
 	return nullptr; // doctor not found
 }
 
@@ -211,9 +280,15 @@ bool Hospital::updatePatientInformation(Patient* p, Department* department, Doct
 
 const char* Hospital::getPatientNameById(int id)
 {
-	Patient* temp = getPatientById(id);
+	for (int i = 0; i < physicalPatients; i++)
+	{
+		if (patients[i]->getId() == id)
+			return patients[i]->getName();
+	}
+	return "Patient ID was not found";
+	/*Patient* temp = getPatientById(id);
 	if (temp != nullptr)
 		return temp->getName();
 	else
-		return "ERROR";
+		return "ERROR";*/
 }

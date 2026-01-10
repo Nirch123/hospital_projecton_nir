@@ -15,7 +15,7 @@ class Department
 	public:
 		//enum eWorkerType {DOCTOR, NURSE, OTHER}; // should classification be under department? or under worker?
 		Department(const char *name);
-		Department(const Department& other);
+		Department(const Department& other) = delete;
 		virtual ~Department();
 		bool addWorker(Worker* worker);
 		bool addPatient(Patient* patient);

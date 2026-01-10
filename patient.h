@@ -12,7 +12,7 @@ class Doctor;
 class Patient : public Person
 {
 public:
-	Patient(const char* name,  int id, const Date& birthdate, eGender gender, const char* visitpurpose, const Date& dateofarrival, Department* department=nullptr,
+	Patient(const char* name,  int id, const Date& birthdate, eGender gender, const char* visitpurpose, const Date& dateofarrival, Department* department,
 		Doctor* doctor=nullptr, Nurse* nurse=nullptr);
 	virtual ~Patient();
 	const char* getPatientDepartment() const;
@@ -31,7 +31,7 @@ public:
 
 
 protected:
-	const Date& dateofarrival;
+	const Date dateofarrival;
 	Department* department;
 	Doctor* MyDoctor;
 	Nurse* MyNurse;

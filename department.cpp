@@ -20,19 +20,6 @@ Department::Department(const char* name)
 	patientArr = new Patient * [logicalPatients] {nullptr};
 }
 
-Department::Department(const Department& other) : physicalWorkers(other.physicalWorkers) , 
-logicalWorkers(other.logicalWorkers), physicalPatients(other.physicalPatients), logicalPatients(other.logicalPatients)
-{
-	this->name = new char[strlen(other.name) + 1];
-	strcpy(name, other.name);
-	workerarr = new Worker * [other.logicalWorkers] {nullptr};
-	patientArr = new Patient * [logicalPatients] {nullptr};
-	for (int i = 0; i < physicalWorkers; i++)
-		workerarr[i] = other.workerarr[i];
-	for (int i = 0; i < physicalPatients; i++)
-		patientArr[i] = other.patientArr[i];
-}
-
 Department::~Department() 
 {
 	cout << "\nDEBUG: in ~Department()";
@@ -43,10 +30,10 @@ Department::~Department()
 bool Department::addWorker(Worker* worker)
 {
 	for (int i = 0; i < physicalWorkers; i++)  // check if worker id is in department already
-		if (worker->getId() == workerarr[i]->getId())
+		if (worker->getWorkerId() == workerarr[i]->getWorkerId())
 			return false;
 
-	if (workerarr[logicalWorkers-1] != nullptr) // check if department worker array is full and expand if nesscery
+	if (logicalWorkers == physicalWorkers) // check if department worker array is full and expand if nesscery
 	{
 		logicalWorkers = logicalWorkers * 2;
 		Worker** temp = new Worker * [logicalWorkers];
@@ -57,9 +44,9 @@ bool Department::addWorker(Worker* worker)
 	}
 
 	workerarr[physicalWorkers] = worker;
-	if (worker->getWorkerDepartment() != workerarr[physicalWorkers]->getWorkerDepartment())
+	if (strcmp(worker->getWorkerDepartment(),workerarr[physicalWorkers]->getWorkerDepartment()) != 0)
 		worker->setWorkerDepartment(this); // make sure worker acknowledges it's new department
-	physicalWorkers++;
+	if (worker->getWorkerId() != 0) physicalWorkers++; // if workerId = 0 -> it's a temporary created in main only!!!
 	return true;
 }
 
@@ -123,7 +110,13 @@ bool Department::removePatient(Patient* patient)
 	return false;
 }
 
-const char* Department::getName() const { return name; }
+const char* Department::getName() const 
+{
+	if (this == nullptr)
+		return "NONE";
+	else
+		return name; 
+}
 
 const int Department::getWorkersAmount() const { return physicalWorkers; }
 

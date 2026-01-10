@@ -11,6 +11,10 @@
 using namespace std;
 
 #include "hospital.h"
+#include "doctor.h"
+#include "nurse.h"
+#include "patient.h"
+#include "date.h"
 
 // main function headers
 void AddDepartmentFunc(Hospital& h);
@@ -30,15 +34,18 @@ void ShowResearchCenterInfoFunc(Researchcenter& rc);
 // interaction menu system
 void main()
 {
-	char input1[20], input2[20];
+	char hospital_name[20], research_center_name[20];
 	int select = 0;
 	cout << "Welcome to the hospital administration system\n";
 	cout << "Please enter hospital name: ";
-	cin >> input1;
+	cin >> hospital_name;
 	cout << "Please enter research center name: ";
-	cin >> input2;
-	Researchcenter *rc = new Researchcenter(input2);
-	Hospital *h = new Hospital(input1, *rc);
+	cin >> research_center_name;
+
+	Hospital h(hospital_name, research_center_name);
+
+	//HARDCODED BENCHTEST
+	//Hospital h("Ichilov", "Erison");
 	do
 	{
 		cout << "\nPlease select an option by entering corresponding number:" <<
@@ -59,46 +66,46 @@ void main()
 		switch (select)
 		{
 		case 1:
-			AddDepartmentFunc(*h);
+			AddDepartmentFunc(h);
 			break;
 		case 2:
-			if (h->getDepartmentsCount() != 0)
-				RemoveDepartmentFunc(*h);
+			if (h.getDepartmentsCount() != 0)
+				RemoveDepartmentFunc(h);
 			else
 				cout << "\nERROR: There are no departments!\n";
 			break;
 		case 3:
-			if (h->getDepartmentsCount() != 0)
-				AddNurseFunc(*h);
+			if (h.getDepartmentsCount() != 0)
+				AddNurseFunc(h);
 			else
 				cout << "\nERROR: Please create a department first!\n";
 			break;
 		case 4:
-			if (h->getDepartmentsCount() != 0)
-				AddDoctorFunc(*h);
+			if (h.getDepartmentsCount() != 0)
+				AddDoctorFunc(h);
 			else
 				cout << "\nERROR: Please create a department first!\n";
 			break;
 		case 5:
-			InsertPatientVisitFunc(*h);
+			InsertPatientVisitFunc(h);
 			break;
 		case 6:
-			AddResearcherFunc(*h, *rc);
+			//AddResearcherFunc(h, rc);
 			break;
 		case 7:
-			AddPaperFunc(*rc, *h);
+			//AddPaperFunc(rc, h);
 			break;
 		case 8:
-			ShowDeparmentInfoFunc(*h);
+			ShowDeparmentInfoFunc(h);
 			break;
 		case 9:
-			ShowMedicalStaffFunc(*h);
+			ShowMedicalStaffFunc(h);
 			break;
 		case 10:
-			SearchPatientIDFunc(*h);
+			SearchPatientIDFunc(h);
 			break;
 		case 11:
-			ShowResearchCenterInfoFunc(*rc);
+			//ShowResearchCenterInfoFunc(rc);
 			break;
 		case 12:
 			break;
@@ -106,22 +113,24 @@ void main()
 			cout << "\nInvalid input, try again\n";
 			break;
 		}
-	} while (select != 11);
-
-	delete h;
-	delete rc;
+	} while (select != 12);
 }
 
 void AddDepartmentFunc(Hospital &h)
 {
-	char input[20];
+	
+	char departmentName[20];
 	cout << "\nInsert department name: ";
-	cin >> input;
-	Department temp(input);
-	if (h.addDepartment(temp) == true)
-		cout << "\nDepartment " << input << " was added succesfully\n";
+	cin >> departmentName;
+	Department temp(departmentName);
+	if (h.addDepartment(departmentName) == true)
+		cout << "\nDepartment " << departmentName << " was added succesfully\n";
 	else
 		cout << "\nfailed to add department\n";
+	
+
+	// HARDCODED BENCHMARK
+	//h.addDepartment("children");
 }
 
 void RemoveDepartmentFunc(Hospital& h)
@@ -142,6 +151,7 @@ void AddDoctorFunc(Hospital& h)
 	char name[20], expertise[20], department[20];
 	int id, day, month, year, genderInt;
 	Person::eGender gender;
+	
 	cout << "\nInput doctor information:";
 	cout << "\nName: ";
 	cin >> name;
@@ -171,7 +181,13 @@ void AddDoctorFunc(Hospital& h)
 	cin >> department;
 	cout << "\nExpertise: ";
 	cin >> expertise;
-	h.addDoctor(name, id, h.createDate(day,month,year), expertise, gender, h.getDepartmentByName(department));
+	Doctor temp(name, id, h.createDate(day, month, year), expertise, gender, h.getDepartmentByName(department));
+	
+	// HARDCODED BENCHTEST
+	//Date tempD(7, 6, 2000);
+	//Doctor temp("Nir", 1234 , tempD, "help", Person::MALE, h.getDepartmentByName("children"));
+
+	h += temp;
 } 
 
 void AddNurseFunc(Hospital& h)
@@ -208,7 +224,13 @@ void AddNurseFunc(Hospital& h)
 	cin >> department;
 	cout << "\nYears of experience: ";
 	cin >> YoE;
-	h.addNurse(name, id, h.createDate(day, month, year), gender, h.getDepartmentByName(department), YoE);
+	Nurse temp(name, id, h.createDate(day, month, year), gender, h.getDepartmentByName(department), YoE);
+
+	// HARDCODED BENCHTEST
+	//Date tempD(17, 10, 2001);
+	//Nurse temp("Liora", 1212, tempD,Person::FEMALE, h.getDepartmentByName("children"));
+
+	h += temp;
 }
 
 void InsertPatientVisitFunc(Hospital& h)
@@ -282,25 +304,50 @@ void InsertPatientVisitFunc(Hospital& h)
 			h.updatePatientInformation(h.getPatientById(id), h.getDepartmentByName(department), h.getDoctorById(docId), h.getNurseById(nurseId));
 		}
 	}
+	
+	//HARDCODED BENCHTEST
+	//h.addPatient("Arik", 1010, h.createDate(0, 0, 0), Person::OTHER, "headache", h.createDate(19, 01, 2026));
 }
 
 void ShowDeparmentInfoFunc(Hospital& h)
 {
-	int intput;
-	char input[20];
+	int select;
+	char departmentName[20];
 	cout << "\nInsert department name: ";
-	cin >> input;
-	if (h.getDepartmentByName(input) != nullptr)
+	cin >> departmentName;
+	if (h.doesDepartmentExist(departmentName) == true)
 	{
 		cout << "\nPlease select:\n(1)\tPrint all workers (doctors/nurses)\n(2)\tPrint all patients\nUser input: ";
-		cin >> intput;
-		switch (intput)
+		cin >> select;
+		switch (select)
 		{
 		case 1:
-			h.printWorkersInDepartment(*h.getDepartmentByName(input));
+			if (h.getDepartmentWorkersCount(departmentName) == 0)
+			{
+				cout << "\nThere are no workers in this department!\n";
+			}
+			else
+			{
+				cout << "\nDepartment " << h.getDepartmentByName(departmentName)->getName() << " workers are :\n\n";
+				for (int i = 0; i < h.getDepartmentWorkersCount(departmentName); i++)
+				{
+					cout << (i + 1) << h.getDepartmentByName(departmentName)->getWorkerByIndex(i) << "\n\n";
+				}
+			}
 			break;
 		case 2:
-			h.printPatientsInDepartment(*h.getDepartmentByName(input));
+			if (h.getDepartmentPatientsCount(departmentName) == 0)
+			{
+				cout << "\nThere are no patients in this department!\n";
+			}
+			else
+			{
+				cout << "\nDepartment " << h.getDepartmentByName(departmentName)->getName() << " patients are : \n";
+				for (int i = 0; i < h.getDepartmentPatientsCount(departmentName); i++)
+				{
+					cout << (i + 1) << h.getDepartmentByName(departmentName)->getPatientByIndex(i) << "\n\n";
+				}
+			}
 			break;
 		default:
 			cout << "\nWrong input please try again.";
@@ -320,13 +367,17 @@ void ShowMedicalStaffFunc(Hospital& h)
 	}
 	for (int i = 0; i < h.getDepartmentsCount(); i++)
 	{
-		cout << "\nDepartment: " << h.getDepartmentName(i);
+		cout << "\nPrinting all medical staff:\nDepartment: " << h.getDepartmentName(i);
 		if (h.getDepartmentByIndex(i)->getWorkersAmount() == 0)
 			cout << "\nThere are no workers in this department\n";
 		else
-			cout << "\nWorkers: " 
-				<< "\n" << h.printWorkersInDepartment(*h.getDepartmentByIndex(i));
+			cout << "\nWorkers:\n";
+			for (int j = 0; j < h.getDepartmentByIndex(i)->getWorkersAmount(); j++)
+			{
+				cout << (j + 1) << h.getDepartmentByName(h.getDepartmentName(i))->getWorkerByIndex(j) << "\n\n";
+			}
 	}
+	cout << "\n";
 }
 
 void SearchPatientIDFunc(Hospital& h)
@@ -346,6 +397,7 @@ void SearchPatientIDFunc(Hospital& h)
 	cout << "\nPatient was not found!\n";
 
 }
+
 void AddResearcherFunc(Hospital& h, Researchcenter& rc)
 {
 	char name[20];
@@ -380,6 +432,7 @@ void AddResearcherFunc(Hospital& h, Researchcenter& rc)
 
 	cout << "\nResearcher added successfully!\n";
 }
+
 void AddPaperFunc(Researchcenter& rc, Hospital& h)
 {
 	int id, day, month, year;
