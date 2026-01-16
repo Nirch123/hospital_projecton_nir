@@ -35,10 +35,12 @@ ostream& operator<<(ostream& os, const Doctor& doctor)
 		os << "Doctor not assigned";
 	else
 		os << "Dr." << doctor.getName();
+	doctor.surgeonOs(os);
 	return os;
 }
 
 void Doctor::doctorOs(ostream& os) const
 {
 	os << "\n\tTitle: Doctor\n\tExpertise: " << expertise;
+
 }

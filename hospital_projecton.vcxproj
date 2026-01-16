@@ -139,6 +139,7 @@
     <ClCompile Include="person.h" />
     <ClCompile Include="researchcenter.cpp" />
     <ClCompile Include="researcher.cpp" />
+    <ClCompile Include="surgeon.cpp" />
     <ClCompile Include="worker.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="patient.h" />
     <ClInclude Include="researchcenter.h" />
     <ClInclude Include="researcher.h" />
+    <ClInclude Include="surgeon.h" />
     <ClInclude Include="worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
