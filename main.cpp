@@ -16,6 +16,9 @@ using namespace std;
 #include "nurse.h"
 #include "patient.h"
 #include "date.h"
+#include "visit.h"
+#include "surgery.h"
+#include "visit.h"
 
 // main function headers
 void AddDepartmentFunc(Hospital& h);
