@@ -1,7 +1,6 @@
 #pragma warning (disable: 4996)
 #include "doctor.h"
 #include "department.h"
-#include "worker.h"
 
 
 Doctor::Doctor(const char* name, const int id, const Date& birthdate, const char* expertise, 
@@ -35,7 +34,6 @@ ostream& operator<<(ostream& os, const Doctor& doctor)
 		os << "Doctor not assigned";
 	else
 		os << "Dr." << doctor.getName();
-	doctor.surgeonOs(os);
 	return os;
 }
 

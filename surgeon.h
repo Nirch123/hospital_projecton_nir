@@ -6,6 +6,7 @@ using namespace std;
 
 #include "doctor.h"
 
+
 class Surgeon : public Doctor
 {
 	public:
@@ -15,7 +16,6 @@ class Surgeon : public Doctor
 		virtual ~Surgeon();
 		void setSurgeonNumOfSurgeries(int NumOfSurgeries);
 		const int getSurgeonNumOfSurgeries() const;
-		friend ostream& operator<<(ostream& os, const Surgeon& surgeon);
 		virtual void surgeonOs(ostream& os) const;
 		
 

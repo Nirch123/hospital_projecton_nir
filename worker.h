@@ -15,7 +15,7 @@ public:
 	enum eWorkerType { DOCTOR, NURSE, OTHER }; // should classification be under department? or under worker?
 	Worker(const char* name, const int id, const Date& birthdate, eGender gender, Department* department = nullptr);
 	Worker(Worker& other);
-	//Worker(Doctor& other);
+	Worker(Doctor& other);
 	virtual ~Worker();
 	const int getWorkerId() const;
 	const char* getWorkerDepartment() const;
@@ -26,6 +26,7 @@ public:
 	friend ostream& operator<<(ostream& os, const Worker& worker);
 	virtual void nurseOs(ostream& os) const {} // polymorphisem - p.54
 	virtual void doctorOs(ostream& os) const {}
+	virtual void surgeonOs(ostream& os) const {}
 
 
 protected:

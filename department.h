@@ -9,6 +9,7 @@ class Worker;
 class Patient;
 class Doctor;
 class Nurse;
+class Surgeon;
 
 class Department
 {
