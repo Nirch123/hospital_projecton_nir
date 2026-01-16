@@ -1,6 +1,7 @@
 #pragma warning (disable: 4996)
 #include "doctor.h"
 #include "department.h"
+#include "worker.h"
 
 
 Doctor::Doctor(const char* name, const int id, const Date& birthdate, const char* expertise, 

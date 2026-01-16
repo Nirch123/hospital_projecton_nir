@@ -141,6 +141,8 @@
     <ClCompile Include="researchcenter.cpp" />
     <ClCompile Include="researcher.cpp" />
     <ClCompile Include="surgeon.cpp" />
+    <ClCompile Include="surgery.cpp" />
+    <ClCompile Include="visit.cpp" />
     <ClCompile Include="worker.cpp" />
   </ItemGroup>
   <ItemGroup>

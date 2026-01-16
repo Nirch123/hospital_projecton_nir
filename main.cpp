@@ -11,6 +11,7 @@
 using namespace std;
 
 #include "hospital.h"
+#include "doctor.h"
 #include "surgeon.h"
 #include "nurse.h"
 #include "patient.h"

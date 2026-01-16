@@ -6,6 +6,9 @@
 #include "date.h"
 #include "patient.h"
 #include "surgeon.h"
+#include "visit.h"
+#include "check.h"
+#include "surgery.h"
 
 int Hospital::idCounter = 100;
 
