@@ -131,3 +131,12 @@ ostream& operator<<(ostream& os, const Department& department)
 	os << department.name;
 	return os;
 }
+
+const bool Department::doesPatientExist(const Patient* patient)
+{
+	for (int i = 0; i < physicalPatients; i++)
+		if (patient->getId() == patientArr[i]->getId())
+			return true;
+	return false;
+}
+

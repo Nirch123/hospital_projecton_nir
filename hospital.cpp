@@ -5,6 +5,9 @@
 #include "nurse.h"
 #include "date.h"
 #include "patient.h"
+#include "visit.h"
+#include "check.h"
+#include "surgery.h"
 
 int Hospital::idCounter = 100;
 
@@ -186,10 +189,10 @@ bool Hospital::operator+=(Nurse& nurse)
 	return true;
 }
 
-bool Hospital::addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender, const char* visitpurpose,
+bool Hospital::addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender,
 	const Date& dateofarrival, Department* department, Doctor* doctor, Nurse* nurse)
 {
-	Patient* p = new Patient(name, id, birthdate, gender, visitpurpose, dateofarrival, department, doctor, nurse);
+	Patient* p = new Patient(name, id, birthdate, gender, dateofarrival, department, doctor, nurse);
 	patients[physicalPatients] = p;
 	++physicalPatients;
 	if (physicalPatients == logicalPatients) // extension of patients array

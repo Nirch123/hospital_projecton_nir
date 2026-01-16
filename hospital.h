@@ -34,7 +34,7 @@ public:
 	bool operator+=(Doctor& doctor);
 	bool addNurse(Nurse& nurse);
 	bool operator+=(Nurse& nurse);
-	bool addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender, const char* visitpurpose,
+	bool addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender,
 		const Date& dateofarrival, Department* department = nullptr, Doctor* doctor = nullptr, Nurse* nurse = nullptr);
 	Date& createDate(int day, int month, int year);
 	//bool printPatientsInDepartment(Department& department);
