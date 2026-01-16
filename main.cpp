@@ -11,7 +11,7 @@
 using namespace std;
 
 #include "hospital.h"
-#include "doctor.h"
+#include "surgeon.h"
 #include "nurse.h"
 #include "patient.h"
 #include "date.h"
@@ -156,7 +156,7 @@ void RemoveDepartmentFunc(Hospital& h)
 void AddDoctorFunc(Hospital& h)
 {
 	char name[20], expertise[20], department[20];
-	int id, day, month, year, genderInt;
+	int id, day, month, year, genderInt, IsSurgeon, NumOfSurgeries;
 	Person::eGender gender;
 	
 	cout << "\nInput doctor information:";
@@ -188,13 +188,25 @@ void AddDoctorFunc(Hospital& h)
 	cin >> department;
 	cout << "\nExpertise: ";
 	cin >> expertise;
-	Doctor temp(name, id, h.createDate(day, month, year), expertise, gender, h.getDepartmentByName(department));
+	cout << "\nIs He/She a Surgeon: (1-Yes) ";
+	cin >> IsSurgeon;
+	if (IsSurgeon == 1)
+	{
+		cout << "\n The Number Of Surgeries:  ";
+		cin >> NumOfSurgeries;
+		Surgeon temp(name, id, h.createDate(day, month, year), expertise, gender, h.getDepartmentByName(department), NumOfSurgeries);
+		h += temp;
+	}
+	else
+	{
+		Doctor temp(name, id, h.createDate(day, month, year), expertise, gender, h.getDepartmentByName(department));
+		h += temp;
+	}
 	
 	// HARDCODED BENCHTEST
 	//Date tempD(7, 6, 2000);
 	//Doctor temp("Nir", 1234 , tempD, "help", Person::MALE, h.getDepartmentByName("children"));
 
-	h += temp;
 } 
 
 void AddNurseFunc(Hospital& h)

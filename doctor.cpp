@@ -1,7 +1,6 @@
 #pragma warning (disable: 4996)
 #include "doctor.h"
 #include "department.h"
-#include "worker.h"
 
 
 Doctor::Doctor(const char* name, const int id, const Date& birthdate, const char* expertise, 
@@ -41,4 +40,5 @@ ostream& operator<<(ostream& os, const Doctor& doctor)
 void Doctor::doctorOs(ostream& os) const
 {
 	os << "\n\tTitle: Doctor\n\tExpertise: " << expertise;
+
 }

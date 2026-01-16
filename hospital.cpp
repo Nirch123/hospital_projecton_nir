@@ -5,9 +5,7 @@
 #include "nurse.h"
 #include "date.h"
 #include "patient.h"
-#include "visit.h"
-#include "check.h"
-#include "surgery.h"
+#include "surgeon.h"
 
 int Hospital::idCounter = 100;
 
@@ -157,9 +155,37 @@ bool Hospital::addDoctor(Doctor& doctor)
 	return true;
 }
 
+
 bool Hospital::operator+=(Doctor& doctor)
 {
 	addDoctor(doctor);
+	return true;
+}
+
+bool Hospital::addSurgeon(Surgeon& surgeon)
+{
+	Surgeon* s = new Surgeon(surgeon);
+	s->setWorkerId(idCounter++);
+	staff[physicalStaff] = s;
+	++physicalStaff;
+	if (physicalStaff == logicalStaff) // extension of staff array
+	{
+		logicalStaff = logicalStaff * 2;
+		Worker** temp = new Worker * [logicalStaff];
+		for (int i = 0; i < physicalStaff; i++)
+			temp[i] = staff[i];
+		delete[] staff;
+		staff = temp;
+	}
+	if (surgeon.getWorkerDepartment() != nullptr)
+		getDepartmentByName((staff[physicalStaff - 1])->getWorkerDepartment())->addWorker(staff[physicalStaff - 1]);
+	return true;
+}
+
+
+bool Hospital::operator+=(Surgeon& surgeon)
+{
+	addSurgeon(surgeon);
 	return true;
 }
 

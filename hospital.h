@@ -32,6 +32,8 @@ public:
 	bool removeDepartment(const Department& department);
 	bool addDoctor(Doctor& doctor);
 	bool operator+=(Doctor& doctor);
+	bool addSurgeon(Surgeon& surgeon);
+	bool operator+=(Surgeon& surgeon);
 	bool addNurse(Nurse& nurse);
 	bool operator+=(Nurse& nurse);
 	bool addPatient(const char* name, int id, const Date& birthdate, Person::eGender gender,

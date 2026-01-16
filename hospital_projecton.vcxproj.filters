@@ -54,13 +54,7 @@
     <ClCompile Include="researcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="visit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="check.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="surgery.cpp">
+    <ClCompile Include="surgeon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,13 +89,7 @@
     <ClInclude Include="researcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="visit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="surgery.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="check.h">
+    <ClInclude Include="surgeon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

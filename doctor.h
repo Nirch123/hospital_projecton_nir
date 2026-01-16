@@ -6,6 +6,7 @@ using namespace std;
 
 #include "worker.h"
 class Department;
+class Surgeon;
 
 
 class Doctor : public Worker

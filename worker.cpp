@@ -20,8 +20,7 @@ Worker::Worker(Worker& other)
 	department = other.department;
 }
 
-Worker::Worker(Doctor& other)
-	: Person(other)
+Worker::Worker(Doctor& other) : Person(other)
 {
 	department = other.department;
 }
@@ -56,6 +55,7 @@ ostream& operator<<(ostream& os, const Worker& worker)
 		<< "\n\tGender: " << worker.getGender() << "\n\tDepartment: " << worker.department->getName();
 	worker.nurseOs(os);
 	worker.doctorOs(os);
+	worker.surgeonOs(os);
 	return os;
 }
 
