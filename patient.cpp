@@ -21,6 +21,8 @@ Patient::Patient(const char* name, int id, const Date& birthdate, eGender gender
 bool Patient::CreateCheckVisit(const Patient* patient, Date& date, Department* department,
 	const char* checkName, Doctor* doctor, Nurse* nurse)
 {
+	if (department == NULL)
+		return false;
 	if (visits[logicalVisits - 1] != nullptr) // visits array expansion if full
 	{
 		logicalVisits *= 2;
@@ -37,6 +39,8 @@ bool Patient::CreateCheckVisit(const Patient* patient, Date& date, Department* d
 bool Patient::CreateSurgeryVisit(const Patient* patient, Date& date, Department* department,
 	bool isFast, int opRoom, Doctor* doctor, Nurse* nurse)
 {
+	if (department == NULL)
+		return false;
 	if (visits[logicalVisits - 1] != nullptr) // visits array expansion if full
 	{
 		logicalVisits *= 2;

@@ -134,6 +134,8 @@ ostream& operator<<(ostream& os, const Department& department)
 
 const bool Department::doesPatientExist(const Patient* patient)
 {
+	if (strcmp(patient->getPatientDepartment(),"NONE") == 0)
+		return true; // if patient is in no department it's "undefined"
 	for (int i = 0; i < physicalPatients; i++)
 		if (patient->getId() == patientArr[i]->getId())
 			return true;

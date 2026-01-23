@@ -42,6 +42,8 @@ const Date& Visit::getDateOfArrival() const { return DOA; }
 bool Visit::setPatientDepartment(Department* new_department)
 {
 	department = new_department;
+	if (new_department == nullptr)
+		return true;
 	if (new_department->doesPatientExist(patient) == false)
 		new_department->addPatient(patient);
 	//if (department != nullptr)

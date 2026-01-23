@@ -233,8 +233,13 @@ bool Hospital::addPatient(const char* name, int id, const Date& birthdate, Perso
 		delete[] patients;
 		patients = temp;
 	}
-	department->addPatient(p);
-	return true;
+	if (department != NULL)
+	{
+		department->addPatient(p);
+		return true;
+	}
+	else
+		return false;
 }
 
 Date& Hospital::createDate(int day, int month, int year)
@@ -304,6 +309,7 @@ Patient* Hospital::getPatientById(int id)
 
 bool Hospital::updatePatientInformation(Patient* p, Department* department, Doctor* doctor, Nurse* nurse)
 {
+	getDepartmentByName((p->getPatientDepartment()))->removePatient(p);
 	p->setPatientDepartment(department);
 	p->setDoctor(doctor);
 	p->setNurse(nurse);
