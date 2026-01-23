@@ -17,7 +17,8 @@ public:
 	bool setNurseYears(int YoE);
 	const int getNurseYears() const;
 	friend ostream& operator<<(ostream& os, const Nurse& nurse);
-	virtual void nurseOs(ostream& os) const override; // polymorphisem - p.54
+	virtual void WorkerTypeOs(ostream& os) const;
+
 
 private:
 	int YoE; // Years of Experience

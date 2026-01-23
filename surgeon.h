@@ -16,7 +16,8 @@ class Surgeon : public Doctor
 		virtual ~Surgeon();
 		void setSurgeonNumOfSurgeries(int NumOfSurgeries);
 		const int getSurgeonNumOfSurgeries() const;
-		virtual void surgeonOs(ostream& os) const;
+		virtual void WorkerTypeOs(ostream& os) const;
+
 		
 
 	private:

@@ -22,7 +22,7 @@ void Surgeon::setSurgeonNumOfSurgeries(const int new_numofsurgeries) { NumOfSurg
 const int Surgeon::getSurgeonNumOfSurgeries() const { return NumOfSurgeries; }
 
 
-void Surgeon::surgeonOs(ostream& os) const
+void Surgeon::WorkerTypeOs(ostream& os) const
 {
-	os << "\n\tIs Surgeon" << "\n\tNumber of Surgeries: " << NumOfSurgeries;
+	os << "\n\tTitle: Surgeon\n\tExpertise: "<< getDoctorExpertise() << "\n\tNumber of Surgeries: " << NumOfSurgeries;
 }

@@ -38,8 +38,10 @@ ostream& operator<<(ostream& os, const Doctor& doctor)
 	return os;
 }
 
-void Doctor::doctorOs(ostream& os) const
+
+void Doctor::WorkerTypeOs(ostream& os) const
 {
 	os << "\n\tTitle: Doctor\n\tExpertise: " << expertise;
 
 }
+

@@ -24,9 +24,8 @@ public:
 	bool setWorkerType(eWorkerType type);
 	bool setWorkerDepartment(Department* new_department);
 	friend ostream& operator<<(ostream& os, const Worker& worker);
-	virtual void nurseOs(ostream& os) const {} // polymorphisem - p.54
-	virtual void doctorOs(ostream& os) const {}
-	virtual void surgeonOs(ostream& os) const {}
+	virtual void WorkerTypeOs(ostream& os) const {}
+
 
 
 protected:

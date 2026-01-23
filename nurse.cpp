@@ -34,9 +34,11 @@ ostream& operator<<(ostream& os, const Nurse& nurse)
 	return os;
 }
 
-void Nurse::nurseOs(ostream& os) const
+
+void Nurse::WorkerTypeOs(ostream& os) const
 {
 	os << "\n\tTitle: Nurse" << "\n\tYoE : " << this->YoE;
 }
+
 
 const int Nurse::getNurseYears() const { return YoE; }

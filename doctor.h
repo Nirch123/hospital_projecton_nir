@@ -19,7 +19,8 @@ class Doctor : public Worker
 		void setDoctorExpertise(const char* expertise);
 		const char* getDoctorExpertise() const;
 		friend ostream& operator<<(ostream& os, const Doctor& doctor);
-		virtual void doctorOs(ostream& os) const;
+		virtual void WorkerTypeOs(ostream& os) const;
+
 
 	private:
 		char* expertise;

@@ -257,7 +257,7 @@ void AddNurseFunc(Hospital& h)
 
 	// HARDCODED BENCHTEST
 	Date tempD(17, 10, 2001);
-	Nurse temp("Liora", 1212, tempD,Person::FEMALE, h.getDepartmentByName("children"));
+	Nurse temp("Liora", 1212, tempD,Person::FEMALE, h.getDepartmentByName("children"),5);
 
 	h += temp;
 }
