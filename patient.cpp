@@ -95,10 +95,10 @@ ostream& operator<<(ostream& os, const Patient& patient) // by refrence
 		"\n\tName: " << patient.getName() <<
 		"\n\tGender: " << patient.getGender() <<
 		"\n\tDOB: " << patient.birthdate <<
-		"\tPatient Id : " << patient.getPatientId() <<
+		"\n\tPatient Id : " << patient.getPatientId() <<
 		"\n\tDepartment: " << patient.getPatientDepartment() <<
 		"\n\tDOA: " << patient.getDateOfArrival() <<
-		"\tVisit reason: " << patient.getPatientVisitPurpose() <<
+		"\n\tVisit reason: " << patient.getPatientVisitPurpose() <<
 		"\n\tAssigned Doctor: " << *patient.getPatientDoctor() <<
 		"\n\tAssigned Nurse: " << *patient.getPatientNurse();
 	return os;
@@ -110,10 +110,10 @@ ostream& operator<<(ostream& os, const Patient* patient) // by pointer (for sing
 		"\n\tName: " << patient->getName() <<
 		"\n\tGender: " << patient->getGender() <<
 		"\n\tDOB: " << patient->birthdate <<
-		"\tPatient Id : " << patient->getPatientId() <<
+		"\n\tPatient Id : " << patient->getPatientId() <<
 		"\n\tDepartment: " << patient->getPatientDepartment() <<
 		"\n\tDOA: " << patient->getDateOfArrival() <<
-		"\tVisit reason: " << patient->getPatientVisitPurpose() <<
+		"\n\tVisit reason: " << patient->getPatientVisitPurpose() <<
 		"\n\tAssigned Doctor: " << *patient->getPatientDoctor() <<
 		"\n\tAssigned Nurse: " << *patient->getPatientNurse();
 	return os;

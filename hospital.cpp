@@ -153,7 +153,7 @@ bool Hospital::addDoctor(Doctor& doctor)
 		delete[] staff;
 		staff = temp;
 	}
-	if (doctor.getWorkerDepartment() != nullptr)
+	if (doesDepartmentExist(doctor.getWorkerDepartment()))
 		getDepartmentByName((staff[physicalStaff-1])->getWorkerDepartment())->addWorker(staff[physicalStaff-1]);	
 	return true;
 }
@@ -180,7 +180,7 @@ bool Hospital::addSurgeon(Surgeon& surgeon)
 		delete[] staff;
 		staff = temp;
 	}
-	if (surgeon.getWorkerDepartment() != nullptr)
+	if (doesDepartmentExist(surgeon.getWorkerDepartment()))
 		getDepartmentByName((staff[physicalStaff - 1])->getWorkerDepartment())->addWorker(staff[physicalStaff - 1]);
 	return true;
 }
@@ -207,7 +207,7 @@ bool Hospital::addNurse(Nurse& nurse)
 		delete[] staff;
 		staff = temp;
 	}
-	if (nurse.getWorkerDepartment() != nullptr)
+	if (doesDepartmentExist(nurse.getWorkerDepartment()))
 		getDepartmentByName((staff[physicalStaff - 1])->getWorkerDepartment())->addWorker(staff[physicalStaff - 1]);
 	return true;
 }

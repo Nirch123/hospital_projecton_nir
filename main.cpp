@@ -66,7 +66,7 @@ void main()
 			"\n(6)\tAdd a researcher" <<
 			"\n(7)\tAdd a research paper" <<
 			"\n(8)\tShow department information (workers/patients)" <<
-			"\n(9)\tShow all medical staff" <<
+			"\n(9)\tShow all medical staff in departments" <<
 			"\n(10)\tSearch patient by ID" <<
 			"\n(11)\tShow all research center staff" <<
 			"\n(12)\tCheck which researcher has more articles" <<
@@ -144,6 +144,7 @@ void AddDepartmentFunc(Hospital &h)
 
 	// HARDCODED BENCHTEST
 	h.addDepartment("children");
+	h.addDepartment("emergency");
 }
 
 void RemoveDepartmentFunc(Hospital& h)
@@ -214,12 +215,12 @@ void AddDoctorFunc(Hospital& h)
 	Date tempD(7, 6, 2000);
 	Doctor temp("Nir", 1234 , tempD, "help", Person::MALE, h.getDepartmentByName("children"));
 	h += temp;
-	Surgeon temp2("Ritz", 4321, tempD, "help", Person::MALE, h.getDepartmentByName("children"), 500);
+	Surgeon temp2("Ritz", 4321, tempD, "help", Person::MALE, h.getDepartmentByName("emergency"), 500);
 	h += temp2;
 } 
 
 void AddNurseFunc(Hospital& h)
-{	/*
+{	
 	char name[20], department[20];
 	int id, day, month, year, genderInt, YoE;
 	Person::eGender gender;
@@ -253,13 +254,17 @@ void AddNurseFunc(Hospital& h)
 	cout << "\nYears of experience: ";
 	cin >> YoE;
 	Nurse temp(name, id, h.createDate(day, month, year), gender, h.getDepartmentByName(department), YoE);
-	*/
+	h += temp;
+	
 
 	// HARDCODED BENCHTEST
+	/*
 	Date tempD(17, 10, 2001);
 	Nurse temp("Liora", 1212, tempD,Person::FEMALE, h.getDepartmentByName("children"));
-
+	Nurse temp2("Roni", 1331, tempD, Person::FEMALE);
 	h += temp;
+	h += temp2;
+	*/
 }
 
 void InsertPatientVisitFunc(Hospital& h)
@@ -414,8 +419,16 @@ void InsertPatientVisitFunc(Hospital& h)
 		h.createDate(7, 6, 2026),
 		h.getDepartmentByName("children"),
 		"examination",
-		h.getDoctorById(101),
-		h.getNurseById(102));
+		h.getDoctorById(0),
+		h.getNurseById(100));
+
+	h.addPatient("Shlomi", 1221, h.createDate(0, 0, 0), Person::OTHER, h.createDate(19, 01, 2026), h.getDepartmentByName("emergency"));
+	h.getPatientById(1221)->CreateSurgeryVisit(h.getPatientById(1221),
+		h.createDate(8, 2, 2025),
+		h.getDepartmentByName("emergency"),
+		true, 201,
+		h.getDoctorById(103),
+		h.getNurseById(0));
 }
 
 void ShowDeparmentInfoFunc(Hospital& h)
@@ -476,7 +489,7 @@ void ShowMedicalStaffFunc(Hospital& h)
 	}
 	for (int i = 0; i < h.getDepartmentsCount(); i++)
 	{
-		cout << "\nPrinting all medical staff:\nDepartment: " << h.getDepartmentName(i);
+		cout << "\nPrinting all medical staff in department: " << h.getDepartmentName(i);
 		if (h.getDepartmentByIndex(i)->getWorkersAmount() == 0)
 			cout << "\nThere are no workers in this department\n";
 		else
@@ -607,42 +620,3 @@ void HaveMoreArticleFunc(Researchcenter& rc)
 		cout << "\nThe Researchers have the same amount of articles.";
 
 }
-
-
-
-//  ############################# hardcoded hospital testbench ####################################
-/*
-#include "department.h"
-#include "worker.h"
-#include "date.h"
-#include "nurse.h"
-#include "doctor.h"
-#include "patient.h"
-
-void main ()
-{
-	Researchcenter researchCenter("Zubi");
-	Hospital hospital("Sheeba",researchCenter);
-	cout << "Hospital name is: " << hospital;
-	cout << "\nHospital Reasearch Center is: " << hospital.getResearchCenterName();
-	Department a("Emergency"), b("Kids"), c("Teeth"), d("Clincs");
-	hospital.addDepartment(a);
-	hospital.addDepartment(b);
-	hospital.addDepartment(c);
-	hospital.addDepartment(d);
-	hospital.printDepartments();
-	hospital.removeDepartment(b);
-	hospital.printDepartments();
-	Date date;
-	Worker w1("Nir", 1000 , date , Person::MALE, &b);
-	Nurse n1("Liora", 1001, date, Person::FEMALE, &b, 3);
-	Nurse n2("Mike", 1002, date, Person::MALE, &b, 5);
-	Nurse n3("Abi", 1003, date, Person::OTHER, &b);
-	Doctor d1("zubi",10005,date,"heart",Person::MALE,&a);
-	Patient p1("dubi",10007,date,Person::OTHER,"heart stroke",date,&a,&d1);
-	hospital.printWorkersInDepartment(b);
-	hospital.printWorkersInDepartment(a);
-	b.removeWorker(&n2);
-	hospital.printWorkersInDepartment(b);
-}
-*/
