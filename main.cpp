@@ -41,7 +41,7 @@ void main()
 {
 	char hospital_name[20], research_center_name[20];
 	int select = 0;
-	cout << "Welcome to the hospital administration system\n";
+	/*cout << "Welcome to the hospital administration system\n";
 	cout << "Please enter hospital name: ";
 	cin >> hospital_name;
 	cout << "Please enter research center name: ";
@@ -49,10 +49,12 @@ void main()
 
 	Hospital h(hospital_name, research_center_name);
 
-	Researchcenter* rc = h.getResearchCenter();
+	Researchcenter* rc = h.getResearchCenter();*/
 
 	//HARDCODED BENCHTEST
-	//Hospital h("Ichilov", "Erison");
+	Hospital h("Ichilov", "Erison");
+	Researchcenter* rc = h.getResearchCenter();
+
 	do
 	{
 		cout << "\nPlease select an option by entering corresponding number:" <<
@@ -129,7 +131,7 @@ void main()
 
 void AddDepartmentFunc(Hospital &h)
 {
-	
+	/*
 	char departmentName[20];
 	cout << "\nInsert department name: ";
 	cin >> departmentName;
@@ -138,10 +140,10 @@ void AddDepartmentFunc(Hospital &h)
 		cout << "\nDepartment " << departmentName << " was added succesfully\n";
 	else
 		cout << "\nfailed to add department\n";
-	
+	*/
 
-	// HARDCODED BENCHMARK
-	//h.addDepartment("children");
+	// HARDCODED BENCHTEST
+	h.addDepartment("children");
 }
 
 void RemoveDepartmentFunc(Hospital& h)
@@ -162,7 +164,7 @@ void AddDoctorFunc(Hospital& h)
 	char name[20], expertise[20], department[20];
 	int id, day, month, year, genderInt, IsSurgeon, NumOfSurgeries;
 	Person::eGender gender;
-	
+	/*
 	cout << "\nInput doctor information:";
 	cout << "\nName: ";
 	cin >> name;
@@ -206,15 +208,18 @@ void AddDoctorFunc(Hospital& h)
 		Doctor temp(name, id, h.createDate(day, month, year), expertise, gender, h.getDepartmentByName(department));
 		h += temp;
 	}
-	
-	// HARDCODED BENCHTEST
-	//Date tempD(7, 6, 2000);
-	//Doctor temp("Nir", 1234 , tempD, "help", Person::MALE, h.getDepartmentByName("children"));
+	*/
 
+	// HARDCODED BENCHTEST
+	Date tempD(7, 6, 2000);
+	Doctor temp("Nir", 1234 , tempD, "help", Person::MALE, h.getDepartmentByName("children"));
+	h += temp;
+	Surgeon temp2("Ritz", 4321, tempD, "help", Person::MALE, h.getDepartmentByName("children"), 500);
+	h += temp2;
 } 
 
 void AddNurseFunc(Hospital& h)
-{
+{	/*
 	char name[20], department[20];
 	int id, day, month, year, genderInt, YoE;
 	Person::eGender gender;
@@ -248,16 +253,17 @@ void AddNurseFunc(Hospital& h)
 	cout << "\nYears of experience: ";
 	cin >> YoE;
 	Nurse temp(name, id, h.createDate(day, month, year), gender, h.getDepartmentByName(department), YoE);
+	*/
 
 	// HARDCODED BENCHTEST
-	//Date tempD(17, 10, 2001);
-	//Nurse temp("Liora", 1212, tempD,Person::FEMALE, h.getDepartmentByName("children"));
+	Date tempD(17, 10, 2001);
+	Nurse temp("Liora", 1212, tempD,Person::FEMALE, h.getDepartmentByName("children"));
 
 	h += temp;
 }
 
 void InsertPatientVisitFunc(Hospital& h)
-{
+{/*
 	char name[20], department[20], checkName[20];
 	int id, genderInt, day, month, year, visitD, visitM, visitY,
 		docId, nurseId, reason, opRoom;
@@ -400,10 +406,16 @@ void InsertPatientVisitFunc(Hospital& h)
 					h.getDoctorById(docId),
 					h.getNurseById(nurseId));
 		}
-	}
+	}*/
 	
 	//HARDCODED BENCHTEST
-	//h.addPatient("Arik", 1010, h.createDate(0, 0, 0), Person::OTHER, "headache", h.createDate(19, 01, 2026));
+	h.addPatient("Arik", 1010, h.createDate(0, 0, 0), Person::OTHER, h.createDate(19, 01, 2026), h.getDepartmentByIndex(0));
+	h.getPatientById(1010)->CreateCheckVisit(h.getPatientById(1010),
+		h.createDate(7, 6, 2026),
+		h.getDepartmentByName("children"),
+		"examination",
+		h.getDoctorById(101),
+		h.getNurseById(102));
 }
 
 void ShowDeparmentInfoFunc(Hospital& h)
